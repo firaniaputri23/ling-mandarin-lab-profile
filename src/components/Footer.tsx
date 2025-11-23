@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { whatsappUrl } from "@/data/stats";
 import whatsappIcon from "@/assets/Medsos/wa.svg";
+import igIcon from "@/assets/Medsos/ig.svg";
+import tiktokIcon from "@/assets/Medsos/tiktok.svg";
 
-import logo from "@/assets/logo.png";
+import logo from "@/assets/LOGO.svg";
 
 const Footer = () => {
   const handleWhatsappClick = () => {
@@ -15,7 +17,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Brand */}
           <div className="space-y-4">
-            <img src={logo} alt="Ling Chinese Lab" className="h-12 w-auto" />
+            <img src={logo} alt="Ling Chinese Lab" className="h-auto w-[50%]" />
             <p className="text-sm text-muted-foreground max-w-xs">
               Membawa bahasa Mandarin jadi dekat dan menyenangkan untuk semua.
             </p>
@@ -39,22 +41,24 @@ const Footer = () => {
           {/* Social Media */}
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">Follow Kami</h3>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-3">
               <a
-                href="https://tiktok.com"
+                href="https://www.instagram.com/lingchineselab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-primary/10"
               >
-                TikTok
+                <img src={igIcon} alt="Instagram" className="h-5 w-5" />
+                <span>@lingchineselab</span>
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.tiktok.com/@ceeehaaaaa?_r=1&_t=ZS-91V8Wr9Xixp"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-primary/10"
               >
-                Instagram
+                <img src={tiktokIcon} alt="TikTok" className="h-5 w-5" />
+                <span>@ceeehaaaaa</span>
               </a>
             </div>
           </div>
