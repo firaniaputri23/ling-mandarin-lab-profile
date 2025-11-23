@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TeacherCard from "@/components/about/TeacherCard";
 import { teachers } from "@/data/teachers";
-import { Lightbulb, Heart } from "lucide-react";
+import { Lightbulb, Heart, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Tentang = () => {
@@ -29,34 +29,91 @@ const Tentang = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-12">
               {/* Logo Brief */}
-              <Card className="border-border bg-card">
-                <CardContent className="p-8 space-y-4">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <Lightbulb className="w-6 h-6 text-primary" />
+              <Card className="relative overflow-hidden border border-primary/20 bg-card shadow-lg">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
+                <CardContent className="relative p-8 space-y-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                        Insight
+                      </span>
+                      <Lightbulb className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                      Future-ready
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
                     <h2 className="text-2xl font-bold text-foreground">
                       Kenapa harus Ling Chinese Lab?
                     </h2>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Lebih dari <span className="font-semibold text-foreground">1,1 miliar orang</span> berbicara Mandarin (Ethnologue, 2023). Belajar di sini berarti membuka jalur baru untuk bisnis, karier, beasiswa, dan koneksi internasional.
+                    </p>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
-                    <span className="font-semibold text-foreground">Ling Chinese Lab</span> Lebih dari 1,1 miliar orang di dunia bisa Bahasa Mandarin (Ethnologue, 2023). Artinya, kamu nggak cuma belajar bahasa, kamu lagi buka pintu ke dunia baru: bisnis, karier, beasiswa, dan relasi internasional. 🌏🚀
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Di tengah persaingan kerja yang makin ketat: <span className="font-semibold text-foreground">data ini bukan main-main</span> untuk semua orang.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    📌 1–2% lowongan kerja di Eropa sekarang meminta kandidat yang bisa Bahasa Mandarin (OECD, 2023) – skill ini bikin CV kamu beda sendiri di mata HR.</p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    📌 40% alumni yang kerja di perusahaan asing dengan sektor terkait Tiongkok & Asia Timur berasal dari jurusan Bahasa Mandarin (Times Indonesia) – Mandarin itu bahasa “jalur cepat” ke karier internasional.</p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    📌 Pekerja yang bisa Bahasa Mandarin berpotensi digaji lebih dari Rp10 juta/bulan di sektor teknologi, perdagangan internasional, dan perusahaan multinasional (Suara.com) – ini bukan cuma hobi, tapi investasi masa depan. 💰📈
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">'Di Ling Chinese
 
-                    Bukan sekadar hafal kosakata, tapi berani ngomong dan pakai Mandarin di dunia nyata 💬
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-2xl border border-border bg-background/70 p-4 shadow-sm">
+                      <p className="text-sm font-semibold text-muted-foreground">Penutur global</p>
+                      <p className="text-2xl font-bold text-foreground">1,1M+</p>
+                      <p className="text-xs text-muted-foreground">Ethnologue, 2023</p>
+                    </div>
+                    <div className="rounded-2xl border border-border bg-background/70 p-4 shadow-sm">
+                      <p className="text-sm font-semibold text-muted-foreground">Lowongan Eropa</p>
+                      <p className="text-2xl font-bold text-foreground">1-2%</p>
+                      <p className="text-xs text-muted-foreground">Butuh kandidat Mandarin (OECD)</p>
+                    </div>
+                    <div className="rounded-2xl border border-border bg-background/70 p-4 shadow-sm">
+                      <p className="text-sm font-semibold text-muted-foreground">Potensi gaji</p>
+                      <p className="text-2xl font-bold text-foreground">Rp10 jt+</p>
+                      <p className="text-xs text-muted-foreground">Teknologi & perdagangan (Suara.com)</p>
+                    </div>
+                  </div>
 
-                    Belajar dengan gaya yang nyaman, terstruktur, dan relevan untuk kerja & bisnis 💼
-
-                    Step-by-step dari dasar sampai siap dipakai untuk interview, meeting, dan kerja sama internasional 🤝</p>
+                  <div className="space-y-3">
+                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                      Cara kami membantu
+                    </p>
+                    <ul className="grid gap-3 sm:grid-cols-2">
+                      <li className="flex items-start gap-3 rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm">
+                        <CheckCircle className="mt-1 h-5 w-5 text-primary" />
+                        <div>
+                          <p className="font-semibold text-foreground">Skill siap pakai</p>
+                          <p className="text-sm text-muted-foreground">
+                            Latihan berbicara, presentasi, dan meeting langsung dengan laoshi berpengalaman.
+                          </p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm">
+                        <CheckCircle className="mt-1 h-5 w-5 text-primary" />
+                        <div>
+                          <p className="font-semibold text-foreground">Kurikulum relevan kerja</p>
+                          <p className="text-sm text-muted-foreground">
+                            Materi terstruktur untuk interview, bisnis, dan kolaborasi internasional.
+                          </p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm">
+                        <CheckCircle className="mt-1 h-5 w-5 text-primary" />
+                        <div>
+                          <p className="font-semibold text-foreground">Pendampingan personal</p>
+                          <p className="text-sm text-muted-foreground">
+                            Kelas fleksibel online atau offline dengan feedback rutin supaya progres terasa.
+                          </p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm">
+                        <CheckCircle className="mt-1 h-5 w-5 text-primary" />
+                        <div>
+                          <p className="font-semibold text-foreground">Jalur cepat karier</p>
+                          <p className="text-sm text-muted-foreground">
+                            Siap dipakai untuk negosiasi, meeting, dan peluang kerja internasional.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
 
