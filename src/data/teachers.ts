@@ -2,16 +2,20 @@ import annieCertificate from "@/assets/Laoshi/Annie/Annie Laoshi.jpg";
 import celineHsk from "@/assets/Laoshi/Celine/Celine HSK.pdf";
 import celineTims from "@/assets/Laoshi/Celine/Celine TIMS.jpg";
 import celineTocfl from "@/assets/Laoshi/Celine/Celine TOCFL.jpg";
+import celineHskPreview from "@/assets/Laoshi/Celine/celine-hsk-1.png";
 import michelleOliviaTocfl from "@/assets/Laoshi/MichelleOlivia/Michelle TOCFL A2.pdf";
 import michellePutriHsk from "@/assets/Laoshi/MichellePutri/Michelle P HSK.pdf";
+import michelleHskPreview from "@/assets/Laoshi/MichellePutri/michelle-hsk-1.png";
 import tasyaPortfolio from "@/assets/Laoshi/Tasya/Tasya 1.jpg";
 import tasyaArticle from "@/assets/Laoshi/Tasya/Tasya Article.jpg";
 import tasyaHsk from "@/assets/Laoshi/Tasya/Tasya HSK.pdf";
+import tasyaHskPreview from "@/assets/Laoshi/Tasya/tasya-hsk-1.png";
 
 export interface TeacherCertificate {
   label: string;
   file: string;
   type: "image" | "pdf";
+  preview?: string;
 }
 
 export interface Teacher {
@@ -39,7 +43,7 @@ export const teachers: Teacher[] = [
     certification: "HSK 5 - TOCFL - TIMS Teaching Certificate",
     experience: "Berpengalaman membimbing anak dan dewasa pemula hingga menengah dengan fokus pengucapan yang rapi.",
     certificates: [
-      { label: "HSK - Celine", file: celineHsk, type: "pdf" },
+      { label: "HSK - Celine", file: celineHsk, type: "pdf", preview: celineHskPreview },
       { label: "TIMS - Celine", file: celineTims, type: "image" },
       { label: "TOCFL - Celine", file: celineTocfl, type: "image" }
     ]
@@ -55,7 +59,7 @@ export const teachers: Teacher[] = [
     certification: "HSK - Artikel & karya tulis Mandarin",
     experience: "3 tahun mengajar, fokus meningkatkan percaya diri berbicara dan pemahaman bacaan.",
     certificates: [
-      { label: "HSK - Tasya", file: tasyaHsk, type: "pdf" },
+      { label: "HSK - Tasya", file: tasyaHsk, type: "pdf", preview: tasyaHskPreview },
       { label: "Artikel Mandarin - Tasya", file: tasyaArticle, type: "image" },
       { label: "Portofolio Tasya", file: tasyaPortfolio, type: "image" }
     ]
@@ -94,7 +98,7 @@ export const teachers: Teacher[] = [
     xinzhongBackground: "Alumni Xin Zhong yang aktif membina kelas persiapan ujian.",
     certification: "HSK",
     experience: "5 tahun mengajar, membantu siswa menaklukkan ujian HSK lewat latihan intensif.",
-    certificates: [{ label: "HSK - Michelle Putri", file: michellePutriHsk, type: "pdf" }]
+    certificates: [{ label: "HSK - Michelle Putri", file: michellePutriHsk, type: "pdf", preview: michelleHskPreview }]
   },
   {
     id: 6,

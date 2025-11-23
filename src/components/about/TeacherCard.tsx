@@ -6,8 +6,9 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
-import { ExternalLink, GraduationCap, MapPin, Award, FileText } from "lucide-react";
+import { ExternalLink, MapPin, Award, FileText } from "lucide-react";
 import { Teacher } from "@/data/teachers";
+import PandaOnly from "@/assets/logoPandaOnly.png";
 
 interface TeacherCardProps {
   teacher: Teacher;
@@ -21,7 +22,7 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-              <GraduationCap className="w-8 h-8 text-primary" />
+              <img src={PandaOnly} alt="Panda Logo" className="size-12" />
             </div>
             <div>
               <h3 className="text-xl font-bold text-foreground">{teacher.name}</h3>
@@ -74,35 +75,65 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
           {teacher.certificates.length ? (
             <Carousel opts={{ align: "start", loop: true }}>
               <CarouselContent>
-                {teacher.certificates.map((certificate, index) => (
-                  <CarouselItem key={`${teacher.id}-${index}`} className="md:basis-2/3">
-                    <a
-                      href={certificate.file}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="block group/cert overflow-hidden rounded-xl border border-border bg-muted/30 hover:border-primary/60 transition-all hover:shadow-md"
-                    >
-                      {certificate.type === "image" ? (
-                        <div className="aspect-video bg-background flex items-center justify-center">
-                          <img
-                            src={certificate.file}
-                            alt={`Sertifikat ${certificate.label}`}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover/cert:scale-105"
-                          />
+                {teacher.certificates.map((certificate, index) => {
+                  const previewImage =
+                    certificate.type === "image" ? certificate.file : certificate.preview;
+                  const pdfViewerSrc =
+                    certificate.type === "pdf"
+                      ? `${certificate.file}#toolbar=0&navpanes=0&scrollbar=0`
+                      : null;
+
+                  return (
+                    <CarouselItem key={`${teacher.id}-${index}`} className="md:basis-2/3">
+                      <a
+                        href={certificate.file}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block group/cert overflow-hidden rounded-xl border border-border bg-muted/30 hover:border-primary/60 transition-all hover:shadow-md"
+                      >
+                        {previewImage ? (
+                          <div className="relative aspect-video bg-background flex items-center justify-center">
+                            <img
+                              src={previewImage}
+                              alt={`Sertifikat ${certificate.label}`}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover/cert:scale-105"
+                            />
+                            {certificate.type === "pdf" ? (
+                              <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white">
+                                PDF
+                              </span>
+                            ) : null}
+                          </div>
+                        ) : certificate.type === "pdf" ? (
+                          <div className="relative aspect-video bg-background">
+                            <object
+                              data={pdfViewerSrc ?? certificate.file}
+                              type="application/pdf"
+                              className="h-full w-full"
+                            >
+                              <div className="h-full w-full flex flex-col items-center justify-center text-primary space-y-2">
+                                <FileText className="w-8 h-8" />
+                                <p className="text-sm font-semibold text-foreground">Dokumen PDF</p>
+                              </div>
+                            </object>
+                            <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white">
+                              PDF
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="aspect-video bg-background flex flex-col items-center justify-center text-primary space-y-2">
+                            <FileText className="w-8 h-8" />
+                            <p className="text-sm font-semibold text-foreground">Dokumen PDF</p>
+                          </div>
+                        )}
+                        <div className="px-4 py-3 flex items-center justify-between text-sm font-semibold text-foreground bg-background">
+                          <span className="mr-2 line-clamp-1">{certificate.label}</span>
+                          <ExternalLink className="w-4 h-4 text-primary flex-shrink-0" />
                         </div>
-                      ) : (
-                        <div className="aspect-video bg-background flex flex-col items-center justify-center text-primary space-y-2">
-                          <FileText className="w-8 h-8" />
-                          <p className="text-sm font-semibold text-foreground">Dokumen PDF</p>
-                        </div>
-                      )}
-                      <div className="px-4 py-3 flex items-center justify-between text-sm font-semibold text-foreground bg-background">
-                        <span className="mr-2 line-clamp-1">{certificate.label}</span>
-                        <ExternalLink className="w-4 h-4 text-primary flex-shrink-0" />
-                      </div>
-                    </a>
-                  </CarouselItem>
-                ))}
+                      </a>
+                    </CarouselItem>
+                  );
+                })}
               </CarouselContent>
               <CarouselPrevious className="hidden md:flex left-2 border-2" />
               <CarouselNext className="hidden md:flex right-2 border-2" />
