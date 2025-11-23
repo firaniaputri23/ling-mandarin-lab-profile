@@ -26,4 +26,4 @@ export const stats: Stat[] = [
   }
 ];
 
-export const whatsappUrl = "https://wa.me/6281234567890?text=Halo%20Ling%20Mandarin%20Lab,%20saya%20ingin%20tanya%20les%20Mandarin.";
+export const whatsappUrl = "https://wa.me/886981932442?text=Halo%20Ling%20Mandarin%20Lab,%20saya%20ingin%20tanya%20les%20Mandarin.";
