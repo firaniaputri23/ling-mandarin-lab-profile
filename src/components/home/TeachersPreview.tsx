@@ -1,8 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, GraduationCap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { teachers } from "@/data/teachers";
 import { Link } from "react-router-dom";
+import PandaOnly from "@/assets/logoPandaOnly.png";
 
 const TeachersPreview = () => {
   const previewTeachers = teachers.slice(0, 3);
@@ -30,7 +31,7 @@ const TeachersPreview = () => {
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center transition-colors group-hover:bg-primary/20">
-                    <GraduationCap className="w-6 h-6 text-primary" />
+                    <img src={PandaOnly} alt="Panda Logo" className="size-12" />
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">{teacher.name}</h3>
