@@ -17,7 +17,7 @@ import schoolNtcust from "@/assets/School/ntcust_long.svg";
 import whatsappIcon from "@/assets/Medsos/wa.svg";
 
 const highlightPoints = [
-  "Yuk, belajar dengan para laoshi penyabar dan bersertifikasi HSK & TOCFL dengan pengalaman studi dan magang di Taiwan!",
+  "Yuk, belajar online group dan private dengan para laoshi penyabar dan bersertifikasi HSK & TOCFL dengan pengalaman studi dan magang di Taiwan!",
 ];
 
 const schoolLogos = [
@@ -152,7 +152,7 @@ const HeroSection = () => {
               {highlightPoints.map((text, index) => (
                 <div
                   key={`highlight-${index}`}
-                  className="rounded-2xl border border-border bg-white/70 px-4 py-3 text-sm sm:text-xl shadow-sm backdrop-blur"
+                  className="rounded-2xl border border-border bg-white/70 px-4 py-3 text-sm sm:text-xl font-bold shadow-sm backdrop-blur"
                 >
                   {text}
                 </div>
