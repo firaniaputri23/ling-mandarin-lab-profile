@@ -17,7 +17,7 @@ const TeachersPreview = () => {
             Kenalan dengan Para Laoshi
           </h2>
           <p className="text-lg text-muted-foreground">
-            Mentor berpengalaman dan bersertifikat HSK dari Xin Zhong School
+            Mentor berpengalaman dan bersertifikat HSK/TOCFL dari Xin Zhong School, NTCUST, Petra, dan kampus Taiwan lainnya
           </p>
         </div>
 
@@ -30,8 +30,12 @@ const TeachersPreview = () => {
             >
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center transition-colors group-hover:bg-primary/20">
-                    <img src={PandaOnly} alt="Panda Logo" className="size-12" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden transition-colors group-hover:bg-primary/20">
+                    <img
+                      src={teacher.photo ?? PandaOnly}
+                      alt={teacher.photo ? `Foto ${teacher.name}` : "Panda Logo"}
+                      className="size-12 object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">{teacher.name}</h3>
@@ -39,14 +43,26 @@ const TeachersPreview = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">{teacher.education}</p>
+                <div className="space-y-3">
+                  {teacher.schools?.length ? (
+                    <div className="flex flex-col gap-2">
+                      {teacher.schools.map((school) => (
+                        <div
+                          key={school.name}
+                          className="flex items-center gap-2 rounded-xl border border-border bg-white/80 px-3 py-2 shadow-sm"
+                        >
+                          <div className="flex h-8 w-8 items-center justify-center rounded bg-muted/60 p-1.5">
+                            <img src={school.logo} alt={`${school.name} logo`} className="h-full w-full object-contain" />
+                          </div>
+                          <span className="text-xs font-semibold text-foreground">{school.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                   <div className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
                     {teacher.certification}
                   </div>
                 </div>
-
-                <p className="text-sm text-muted-foreground">{teacher.experience}</p>
               </CardContent>
             </Card>
           ))}

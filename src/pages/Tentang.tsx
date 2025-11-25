@@ -151,10 +151,10 @@ const Tentang = () => {
               <CardContent className="p-8 text-center">
                 <p className="text-muted-foreground leading-relaxed">
                   <span className="font-semibold text-foreground">Ling Chinese Lab</span> dibangun
-                  oleh para alumni <span className="font-semibold text-foreground">Xin Zhong School</span>,
-                  sekolah dengan tradisi pendidikan bahasa Mandarin yang kuat. Kami memahami tantangan
-                  belajar Mandarin dan berkomitmen untuk membuat proses belajar menjadi lebih mudah,
-                  efektif, dan menyenangkan untuk semua kalangan.
+                  oleh para alumni <span className="font-semibold text-foreground">Xin Zhong School</span>
+                  dan kampus mitra seperti <span className="font-semibold text-foreground">NTCUST, Petra Christian University, Taichung Chung Hsing University</span>, dan <span className="font-semibold text-foreground">China Medical University</span>.
+                  Kami memahami tantangan belajar Mandarin dan berkomitmen untuk membuat proses belajar
+                  menjadi lebih mudah, efektif, dan menyenangkan untuk semua kalangan.
                 </p>
               </CardContent>
             </Card>

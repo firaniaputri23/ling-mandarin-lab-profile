@@ -21,8 +21,12 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-              <img src={PandaOnly} alt="Panda Logo" className="size-12" />
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden group-hover:bg-primary/20 transition-colors">
+              <img
+                src={teacher.photo ?? PandaOnly}
+                alt={teacher.photo ? `Foto ${teacher.name}` : "Panda Logo"}
+                className="size-16 object-cover"
+              />
             </div>
             <div>
               <h3 className="text-xl font-bold text-foreground">{teacher.name}</h3>
@@ -38,29 +42,32 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
         </div>
 
         {/* Education */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           <h4 className="font-semibold text-foreground flex items-center space-x-2">
             <Award className="w-4 h-4 text-primary" />
             <span>Pendidikan</span>
           </h4>
-          <p className="text-sm text-muted-foreground">{teacher.education}</p>
-          <p className="text-sm text-muted-foreground">{teacher.degree}</p>
-        </div>
+          {teacher.schools?.length ? (
+            <div className="flex flex-col gap-2">
+              {teacher.schools.map((school) => (
+                <div
+                  key={school.name}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-white px-3 py-2 shadow-sm"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-md bg-muted/60 p-1.5">
+                    <img src={school.logo} alt={`${school.name} logo`} className="h-full w-full object-contain" />
+                  </div>
+                  <span className="text-sm font-semibold text-foreground">{school.name}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
 
-        {/* Xin Zhong Background */}
-        <div className="bg-muted/50 p-4 rounded-lg">
-          <p className="text-sm text-muted-foreground">{teacher.xinzhongBackground}</p>
         </div>
 
         {/* Certification */}
         <div className="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold rounded-lg">
           {teacher.certification}
-        </div>
-
-        {/* Experience */}
-        <div className="space-y-2">
-          <h4 className="font-semibold text-foreground">Pengalaman Mengajar</h4>
-          <p className="text-sm text-muted-foreground">{teacher.experience}</p>
         </div>
 
         {/* Certificate */}

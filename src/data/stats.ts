@@ -21,7 +21,7 @@ export const stats: Stat[] = [
   {
     id: 3,
     label: "Mentor Bersertifikat HSK & TOCFL",
-    value: "6",
+    value: "7",
     description: "Laoshi profesional"
   }
 ];

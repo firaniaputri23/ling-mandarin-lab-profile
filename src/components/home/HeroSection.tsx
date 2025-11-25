@@ -10,21 +10,23 @@ import panda4 from "@/assets/PandaDialog/4.svg";
 import flagChina from "@/assets/Flag/china.svg";
 import flagTaiwan from "@/assets/Flag/taiwan.svg";
 import flagIndonesia from "@/assets/Flag/indonesia.svg";
-import schoolXinZhong from "@/assets/School/xin_zhong.svg";
 import schoolHsing from "@/assets/School/hsing.svg";
 import schoolMedical from "@/assets/School/medical.svg";
 import schoolNtcust from "@/assets/School/ntcust_long.svg";
+import schoolPetra from "@/assets/School/petra.svg";
+import schoolXinZhong from "@/assets/School/xin_zhong.svg";
 import whatsappIcon from "@/assets/Medsos/wa.svg";
 
 const highlightPoints = [
-  "Yuk, belajar online group dan private dengan para laoshi penyabar dan bersertifikasi HSK & TOCFL dengan pengalaman studi dan magang di Taiwan!",
+  "Yuk, belajar online group dan private dengan para laoshi penyabar dan bersertifikasi HSK & TOCFL dengan pengalaman studi dan magang di Taiwan!",
 ];
 
 const schoolLogos = [
   { src: schoolXinZhong, alt: "Xin Zhong School" },
-  { src: schoolMedical, alt: "Taipei Medical University" },
-  { src: schoolNtcust, alt: "National Taichung University of Science and Technology" },
-  { src: schoolHsing, alt: "Hsing Wu University" }
+  { src: schoolNtcust, alt: "NTCUST" },
+  { src: schoolPetra, alt: "Petra Christian University" },
+  { src: schoolHsing, alt: "Taichung Chung Hsing University" },
+  { src: schoolMedical, alt: "China Medical University, Taichung" }
 ];
 
 const flagList = [
@@ -124,7 +126,7 @@ const HeroSection = () => {
                   />
                 ))}
               </div>
-            </div>c
+            </div>
           </div>
           <div className="order-2 space-y-6 lg:order-2 w-full">
             <div className="space-y-4 relative">
@@ -200,7 +202,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 pt-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 pt-6">
               {schoolLogos.map((school) => (
                 <div
                   key={school.alt}
