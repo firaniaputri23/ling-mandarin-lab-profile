@@ -20,6 +20,7 @@ import schoolNtcust from "@/assets/School/ntcust_long.svg";
 import schoolPetra from "@/assets/School/petra.svg";
 import schoolXinZhong from "@/assets/School/xin_zhong.svg";
 import celinePhoto from "@/assets/Laoshi/Celine/person/celine.svg";
+import anniePhoto from "@/assets/Laoshi/Annie/person/Annie.jpg";
 
 export interface TeacherCertificate {
   label: string;
@@ -102,6 +103,7 @@ export const teachers: Teacher[] = [
     location: "Bandung & Online",
     schools: [schoolOptions.chinaMedical],
     education: educationText([schoolOptions.chinaMedical]),
+    photo: anniePhoto,
     degree: "Spesialisasi pengajaran anak-anak",
     xinzhongBackground: "Lulusan China Medical University di Taichung yang terbiasa mengajar siswa usia dini dengan pendekatan fun learning.",
     certification: "Sertifikasi pengajaran",
