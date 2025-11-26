@@ -19,26 +19,18 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
     <Card className="group border-border hover:border-primary/60 hover:shadow-xl transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.01]">
       <CardContent className="p-6 space-y-6">
         {/* Header */}
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden group-hover:bg-primary/20 transition-colors">
-              <img
-                src={teacher.photo ?? PandaOnly}
-                alt={teacher.photo ? `Foto ${teacher.name}` : "Panda Logo"}
-                className="size-16 object-cover"
-              />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-foreground">{teacher.name}</h3>
-              <p className="text-muted-foreground">{teacher.mandarinName}</p>
-            </div>
+        <div className="flex items-start space-x-4">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden group-hover:bg-primary/20 transition-colors">
+            <img
+              src={teacher.photo ?? PandaOnly}
+              alt={teacher.photo ? `Foto ${teacher.name}` : "Panda Logo"}
+              className="size-16 object-cover"
+            />
           </div>
-        </div>
-
-        {/* Location */}
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-          <MapPin className="w-4 h-4" />
-          <span>{teacher.location}</span>
+          <div>
+            <h3 className="text-xl font-bold text-foreground">{teacher.name}</h3>
+            <p className="text-muted-foreground">{teacher.mandarinName}</p>
+          </div>
         </div>
 
         {/* Education */}

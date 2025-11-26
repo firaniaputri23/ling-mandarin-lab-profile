@@ -151,7 +151,7 @@ export const teachers: Teacher[] = [
     education: educationText([schoolOptions.ntcust]),
     degree: "Sertifikasi menyusul",
     xinzhongBackground: "Lulusan NTCUST yang tengah menyiapkan sertifikat terbarunya.",
-    certification: "Sertifikat sedang diproses",
+    certification: "HSK • TOCFL • Jinan University Score",
     experience: "Berpengalaman mengajar percakapan sehari-hari dan kelas privat fleksibel.",
     certificates: [
       { label: "HSK - Rachel", file: rachelHsk, type: "pdf" },
