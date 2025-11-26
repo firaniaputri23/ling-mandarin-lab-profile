@@ -14,13 +14,17 @@ import tasyaArticle from "@/assets/Laoshi/Tasya/Tasya Article.jpg";
 import tasyaHsk from "@/assets/Laoshi/Tasya/Tasya HSK.pdf";
 import tasyaHskPreview from "@/assets/Laoshi/Tasya/tasya-hsk-1.png";
 import tasyaPhoto from "@/assets/Laoshi/Tasya/person/tasya.svg";
+import rachelHsk from "@/assets/Laoshi/Rachel/HSK.pdf";
+import rachelTocfl from "@/assets/Laoshi/Rachel/TOCFL.pdf";
+import rachelJinan from "@/assets/Laoshi/Rachel/Jinan University Chinese Language Level Test Score Certificate.pdf";
 import schoolHsing from "@/assets/School/hsing.svg";
 import schoolMedical from "@/assets/School/medical.svg";
 import schoolNtcust from "@/assets/School/ntcust_long.svg";
 import schoolPetra from "@/assets/School/petra.svg";
 import schoolXinZhong from "@/assets/School/xin_zhong.svg";
 import celinePhoto from "@/assets/Laoshi/Celine/person/celine.svg";
-import anniePhoto from "@/assets/Laoshi/Annie/person/Annie.jpg";
+import anniePhoto from "@/assets/Laoshi/Annie/person/annie.svg";
+import aureliaPhoto from "@/assets/Laoshi/Aurelia/person/aurellia.svg";
 
 export interface TeacherCertificate {
   label: string;
@@ -149,7 +153,11 @@ export const teachers: Teacher[] = [
     xinzhongBackground: "Lulusan NTCUST yang tengah menyiapkan sertifikat terbarunya.",
     certification: "Sertifikat sedang diproses",
     experience: "Berpengalaman mengajar percakapan sehari-hari dan kelas privat fleksibel.",
-    certificates: []
+    certificates: [
+      { label: "HSK - Rachel", file: rachelHsk, type: "pdf" },
+      { label: "TOCFL - Rachel", file: rachelTocfl, type: "pdf" },
+      { label: "Jinan University Score", file: rachelJinan, type: "pdf" }
+    ]
   },
   {
     id: 7,
@@ -158,6 +166,7 @@ export const teachers: Teacher[] = [
     location: "Online",
     schools: [schoolOptions.xinZhong],
     education: educationText([schoolOptions.xinZhong]),
+    photo: aureliaPhoto,
     degree: "Sertifikasi pengajaran Mandarin",
     xinzhongBackground: "Berbasis di Xin Zhong School dengan fokus pendampingan percakapan dasar dan persiapan ujian.",
     certification: "Sertifikat pengajaran Mandarin",
