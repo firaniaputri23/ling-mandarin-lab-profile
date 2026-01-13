@@ -42,12 +42,15 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">Follow Kami</h3>
             <div className="flex flex-wrap gap-3">
-              <div
+              <a
+                href="https://www.instagram.com/lingchineselab?igsh=MXNmMnBscmR6aHFlaw=="
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-primary/10"
               >
                 <img src={igIcon} alt="Instagram" className="h-5 w-5" />
                 <span>@lingchineselab</span>
-              </div>
+              </a>
               <a
                 href="https://www.tiktok.com/@ceeehaaaaa?_r=1&_t=ZS-91V8Wr9Xixp"
                 target="_blank"
