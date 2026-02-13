@@ -52,13 +52,13 @@ const Footer = () => {
                 <span>@lingchineselab</span>
               </a>
               <a
-                href="https://www.tiktok.com/@ceeehaaaaa?_r=1&_t=ZS-91V8Wr9Xixp"
+                href="https://www.tiktok.com/@lingchineselab?_r=1&_t=ZS-93rcJMWKTLg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-primary/10"
               >
                 <img src={tiktokIcon} alt="TikTok" className="h-5 w-5" />
-                <span>@ceeehaaaaa</span>
+                <span>@lingchineselab</span>
               </a>
             </div>
           </div>
