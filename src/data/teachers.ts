@@ -1,11 +1,11 @@
-import annieCertificate from "@/assets/Laoshi/Annie/Annie Laoshi.jpg";
+import triveraCertificate from "@/assets/Laoshi/Trivera/trivera_certificate.pdf";
 import aureliaCertificate from "@/assets/Laoshi/Aurelia/CamScanner 24-11-2025 06.20.pdf";
 import celineHsk from "@/assets/Laoshi/Celine/Celine HSK.pdf";
 import celineTims from "@/assets/Laoshi/Celine/Celine TIMS.jpg";
 import celineTocfl from "@/assets/Laoshi/Celine/Celine TOCFL.jpg";
 import celineHskPreview from "@/assets/Laoshi/Celine/celine-hsk-1.png";
-import michelleOliviaTocfl from "@/assets/Laoshi/MichelleOlivia/Michelle TOCFL A2.pdf";
-import michelleOliviaPhoto from "@/assets/Laoshi/MichelleOlivia/person/olivia.svg";
+import graciaCertificate from "@/assets/Laoshi/Gracia/gracia.pdf";
+import graciaPhoto from "@/assets/Laoshi/Gracia/gracia.svg";
 import michellePutriHsk from "@/assets/Laoshi/MichellePutri/Michelle P HSK.pdf";
 import michelleHskPreview from "@/assets/Laoshi/MichellePutri/michelle-hsk-1.png";
 import michellePutriPhoto from "@/assets/Laoshi/MichellePutri/person/michelleputri.svg";
@@ -22,9 +22,13 @@ import schoolMedical from "@/assets/School/medical.svg";
 import schoolNtcust from "@/assets/School/ntcust_long.svg";
 import schoolPetra from "@/assets/School/petra.svg";
 import schoolXinZhong from "@/assets/School/xin_zhong.svg";
+import schoolMntnu from "@/assets/School/mntnu.svg";
+import schoolFengchia from "@/assets/School/fengchia.svg";
 import celinePhoto from "@/assets/Laoshi/Celine/person/celine.svg";
-import anniePhoto from "@/assets/Laoshi/Annie/person/annie.svg";
+import triveraPhoto from "@/assets/Laoshi/Trivera/trivera_pic.svg";
 import aureliaPhoto from "@/assets/Laoshi/Aurelia/person/aurellia.svg";
+import ellenCertificate from "@/assets/Laoshi/Ellen/ellen_certificate.pdf";
+import ellenPhoto from "@/assets/Laoshi/Ellen/ellen_pic.svg";
 
 export interface TeacherCertificate {
   label: string;
@@ -58,7 +62,9 @@ const schoolOptions: Record<string, TeacherSchool> = {
   ntcust: { name: "NTCUST", logo: schoolNtcust },
   petra: { name: "Petra Christian University", logo: schoolPetra },
   chunghsing: { name: "Taichung Chung Hsing University", logo: schoolHsing },
-  chinaMedical: { name: "China Medical University, Taichung", logo: schoolMedical }
+  chinaMedical: { name: "China Medical University, Taichung", logo: schoolMedical },
+  mntnu: { name: "Mandarin Training Center of National Taiwan Normal University", logo: schoolMntnu },
+  fengchia: { name: "Taichung Fengchia University", logo: schoolFengchia }
 };
 
 const educationText = (schools: TeacherSchool[]) => schools.map((school) => school.name).join(" / ");
@@ -102,31 +108,31 @@ export const teachers: Teacher[] = [
   },
   {
     id: 3,
-    name: "Annie",
-    mandarinName: "Laoshi Annie",
+    name: "Trivera",
+    mandarinName: "Laoshi Trivera",
     location: "Bandung & Online",
-    schools: [schoolOptions.chinaMedical],
-    education: educationText([schoolOptions.chinaMedical]),
-    photo: anniePhoto,
+    schools: [schoolOptions.fengchia],
+    education: educationText([schoolOptions.fengchia]),
+    photo: triveraPhoto,
     degree: "Spesialisasi pengajaran anak-anak",
     xinzhongBackground: "Lulusan China Medical University di Taichung yang terbiasa mengajar siswa usia dini dengan pendekatan fun learning.",
-    certification: "Sertifikasi pengajaran",
+    certification: "TOCFL C1",
     experience: "4 tahun mengajar, memadukan latihan percakapan dan permainan kosakata.",
-    certificates: [{ label: "Sertifikat Annie", file: annieCertificate, type: "image" }]
+    certificates: [{ label: "Sertifikat Trivera", file: triveraCertificate, type: "pdf" }]
   },
   {
     id: 4,
-    name: "Michelle Olivia",
-    mandarinName: "Laoshi Michelle Olivia",
+    name: "Gracia",
+    mandarinName: "Laoshi Gracia",
     location: "Jakarta & Online",
-    schools: [schoolOptions.ntcust],
-    education: educationText([schoolOptions.ntcust]),
-    photo: michelleOliviaPhoto,
+    schools: [schoolOptions.chunghsing],
+    education: educationText([schoolOptions.chunghsing]),
+    photo: graciaPhoto,
     degree: "Sertifikasi TOCFL",
     xinzhongBackground: "Lulusan NTCUST dengan fokus pengembangan kemampuan dasar percakapan.",
-    certification: "TOCFL A2 - NTCUST",
+    certification: "TOCFL B1",
     experience: "Mendampingi banyak pemula dewasa memulai percakapan sehari-hari dalam Mandarin.",
-    certificates: [{ label: "TOCFL A2 - Michelle Olivia", file: michelleOliviaTocfl, type: "pdf" }]
+    certificates: [{ label: "Sertifikat Gracia", file: graciaCertificate, type: "pdf" }]
   },
   {
     id: 5,
@@ -169,8 +175,22 @@ export const teachers: Teacher[] = [
     photo: aureliaPhoto,
     degree: "Sertifikasi pengajaran Mandarin",
     xinzhongBackground: "Berbasis di Xin Zhong School dengan fokus pendampingan percakapan dasar dan persiapan ujian.",
-    certification: "Sertifikat pengajaran Mandarin",
+    certification: "TOCFL B1",
     experience: "Mendampingi pemula dewasa memulai percakapan sehari-hari dengan latihan terstruktur.",
     certificates: [{ label: "Sertifikat Aurelia Kelly", file: aureliaCertificate, type: "pdf" }]
+  },
+  {
+    id: 8,
+    name: "Ellen",
+    mandarinName: "Laoshi Ellen",
+    location: "Online",
+    schools: [schoolOptions.mntnu],
+    education: educationText([schoolOptions.mntnu]),
+    photo: ellenPhoto,
+    degree: "TOCFL C1",
+    xinzhongBackground: "Berpengalaman mengajar percakapan dasar dan persiapan ujian.",
+    certification: "TOCFL C1",
+    experience: "Mendampingi pemula memulai percakapan sehari-hari dengan latihan terstruktur.",
+    certificates: [{ label: "Sertifikat Ellen", file: ellenCertificate, type: "pdf" }]
   }
 ];
