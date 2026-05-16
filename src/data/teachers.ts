@@ -29,6 +29,9 @@ import triveraPhoto from "@/assets/Laoshi/Trivera/trivera_pic.svg";
 import aureliaPhoto from "@/assets/Laoshi/Aurelia/person/aurellia.svg";
 import ellenCertificate from "@/assets/Laoshi/Ellen/ellen_certificate.pdf";
 import ellenPhoto from "@/assets/Laoshi/Ellen/ellen_pic.svg";
+import jaxineTocfl from "@/assets/Laoshi/Jaxine/JAXINE - Chinese Language Proficiency - TOCFL.pdf";
+import jaxinePhoto from "@/assets/Laoshi/Jaxine/WhatsApp Image 2026-05-15 at 09.23.00.jpeg";
+import jaxineResume from "@/assets/Laoshi/Jaxine/陳嘉欣 resume.pdf";
 
 export interface TeacherCertificate {
   label: string;
@@ -63,6 +66,7 @@ const schoolOptions: Record<string, TeacherSchool> = {
   petra: { name: "Petra Christian University", logo: schoolPetra },
   chunghsing: { name: "Taichung Chung Hsing University", logo: schoolHsing },
   chinaMedical: { name: "China Medical University, Taichung", logo: schoolMedical },
+  chinaMedicalShuinan: { name: "China Medical University Shuinan Campus", logo: schoolMedical },
   mntnu: { name: "Mandarin Training Center of National Taiwan Normal University", logo: schoolMntnu },
   fengchia: { name: "Taichung Fengchia University", logo: schoolFengchia }
 };
@@ -192,5 +196,22 @@ export const teachers: Teacher[] = [
     certification: "TOCFL C1",
     experience: "Mendampingi pemula memulai percakapan sehari-hari dengan latihan terstruktur.",
     certificates: [{ label: "Sertifikat Ellen", file: ellenCertificate, type: "pdf" }]
+  },
+  {
+    id: 9,
+    name: "Ms. Jaxine",
+    mandarinName: "陳嘉欣",
+    location: "Online",
+    schools: [schoolOptions.chinaMedicalShuinan],
+    education: educationText([schoolOptions.chinaMedicalShuinan]),
+    photo: jaxinePhoto,
+    degree: "Sertifikasi TOCFL",
+    xinzhongBackground: "Lulusan China Medical University Shuinan Campus.",
+    certification: "TOCFL",
+    experience: "Berpengalaman mengajar bahasa Mandarin.",
+    certificates: [
+      { label: "TOCFL - Jaxine", file: jaxineTocfl, type: "pdf" },
+      { label: "Resume - Jaxine", file: jaxineResume, type: "pdf" }
+    ]
   }
 ];
