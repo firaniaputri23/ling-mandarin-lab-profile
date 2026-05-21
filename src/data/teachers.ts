@@ -32,6 +32,9 @@ import ellenPhoto from "@/assets/Laoshi/Ellen/ellen_pic.svg";
 import jaxineTocfl from "@/assets/Laoshi/Jaxine/JAXINE - Chinese Language Proficiency - TOCFL.pdf";
 import jaxinePhoto from "@/assets/Laoshi/Jaxine/WhatsApp Image 2026-05-15 at 09.23.00.jpeg";
 import jaxineResume from "@/assets/Laoshi/Jaxine/陳嘉欣 resume.pdf";
+import oliviaPhoto from "@/assets/Laoshi/Olivia/olivia_pic.png";
+import oliviaTocfl1 from "@/assets/Laoshi/Olivia/olivia_tocfl_1.jpeg";
+import oliviaTocfl2 from "@/assets/Laoshi/Olivia/olivia_tocfl_2.jpeg";
 
 export interface TeacherCertificate {
   label: string;
@@ -212,6 +215,23 @@ export const teachers: Teacher[] = [
     certificates: [
       { label: "TOCFL - Jaxine", file: jaxineTocfl, type: "pdf" },
       { label: "Resume - Jaxine", file: jaxineResume, type: "pdf" }
+    ]
+  },
+  {
+    id: 10,
+    name: "Olivia",
+    mandarinName: "Laoshi Olivia",
+    location: "Online",
+    schools: [schoolOptions.ntcust],
+    education: educationText([schoolOptions.ntcust]),
+    photo: oliviaPhoto,
+    degree: "Sertifikasi TOCFL",
+    xinzhongBackground: "Lulusan NTCUST.",
+    certification: "TOCFL",
+    experience: "Berpengalaman mengajar bahasa Mandarin.",
+    certificates: [
+      { label: "Sertifikat Olivia", file: oliviaTocfl1, type: "image" },
+      { label: "TOCFL", file: oliviaTocfl2, type: "image" }
     ]
   }
 ];
