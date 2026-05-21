@@ -13,9 +13,17 @@ import celineHSKPreview from "@/assets/Laoshi/Celine/celine-hsk-1.png";
 import celineTOCFL from "@/assets/Laoshi/Celine/Celine TOCFL.jpg";
 import michelleHSK from "@/assets/Laoshi/MichellePutri/Michelle P HSK.pdf";
 import michelleHSKPreview from "@/assets/Laoshi/MichellePutri/michelle-hsk-1.png";
-import michelleTOCFL from "@/assets/Laoshi/MichelleOlivia/Michelle TOCFL A2.pdf";
 import tasyaHSK from "@/assets/Laoshi/Tasya/Tasya HSK.pdf";
 import tasyaHSKPreview from "@/assets/Laoshi/Tasya/tasya-hsk-1.png";
+import triveraCertificate from "@/assets/Laoshi/Trivera/trivera_certificate.pdf";
+import graciaCertificate from "@/assets/Laoshi/Gracia/gracia.pdf";
+import rachelHsk from "@/assets/Laoshi/Rachel/HSK.pdf";
+import rachelTocfl from "@/assets/Laoshi/Rachel/TOCFL.pdf";
+import aureliaCertificate from "@/assets/Laoshi/Aurelia/CamScanner 24-11-2025 06.20.pdf";
+import ellenCertificate from "@/assets/Laoshi/Ellen/ellen_certificate.pdf";
+import jaxineTocfl from "@/assets/Laoshi/Jaxine/JAXINE - Chinese Language Proficiency - TOCFL.pdf";
+import oliviaTocfl1 from "@/assets/Laoshi/Olivia/olivia_tocfl_1.jpeg";
+import oliviaTocfl2 from "@/assets/Laoshi/Olivia/olivia_tocfl_2.jpeg";
 
 const icons = {
   0: TrendingUp,
@@ -60,14 +68,6 @@ const certificates: Certificate[] = [
     type: "TOCFL" as CertificateType
   },
   {
-    src: michelleTOCFL,
-    preview: michelleTOCFL,
-    mentor: "Laoshi Michelle Olivia",
-    description: "TOCFL Certificate",
-    type: "TOCFL" as CertificateType,
-    previewType: "pdf" as const
-  },
-  {
     src: michelleHSK,
     preview: michelleHSKPreview,
     mentor: "Laoshi Michelle Putri",
@@ -80,6 +80,78 @@ const certificates: Certificate[] = [
     mentor: "Laoshi Tasya",
     description: "HSK Certificate",
     type: "HSK" as CertificateType
+  },
+  {
+    src: triveraCertificate,
+    preview: triveraCertificate,
+    mentor: "Laoshi Trivera",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: graciaCertificate,
+    preview: graciaCertificate,
+    mentor: "Laoshi Gracia",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: rachelHsk,
+    preview: rachelHsk,
+    mentor: "Laoshi Rachel",
+    description: "HSK Certificate",
+    type: "HSK" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: rachelTocfl,
+    preview: rachelTocfl,
+    mentor: "Laoshi Rachel",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: aureliaCertificate,
+    preview: aureliaCertificate,
+    mentor: "Laoshi Aurelia Kelly",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: ellenCertificate,
+    preview: ellenCertificate,
+    mentor: "Laoshi Ellen",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: jaxineTocfl,
+    preview: jaxineTocfl,
+    mentor: "Ms. Jaxine",
+    description: "TOCFL Certificate",
+    type: "TOCFL" as CertificateType,
+    previewType: "pdf"
+  },
+  {
+    src: oliviaTocfl1,
+    preview: oliviaTocfl1,
+    mentor: "Laoshi Olivia",
+    description: "TOCFL Certificate 1",
+    type: "TOCFL" as CertificateType,
+    previewType: "image"
+  },
+  {
+    src: oliviaTocfl2,
+    preview: oliviaTocfl2,
+    mentor: "Laoshi Olivia",
+    description: "TOCFL Certificate 2",
+    type: "TOCFL" as CertificateType,
+    previewType: "image"
   }
 ];
 
