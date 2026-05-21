@@ -141,8 +141,13 @@ const Tentang = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {teachers.map((teacher) => (
-                <TeacherCard key={teacher.id} teacher={teacher} />
+              {teachers.map((teacher, index, arr) => (
+                <div 
+                  key={teacher.id} 
+                  className={index === arr.length - 1 && arr.length % 3 === 1 ? "lg:col-start-2" : ""}
+                >
+                  <TeacherCard teacher={teacher} />
+                </div>
               ))}
             </div>
 
