@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Tentang from "./pages/Tentang";
+import EbookHSK from "./pages/EbookHSK";
+import EbookCheckout from "./pages/EbookCheckout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,6 +20,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tentang" element={<Tentang />} />
+          <Route path="/ebook-hsk" element={<EbookHSK />} />
+          <Route path="/ebook-hsk/checkout" element={<EbookCheckout />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
