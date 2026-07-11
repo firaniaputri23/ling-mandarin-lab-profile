@@ -35,6 +35,9 @@ import jaxineResume from "@/assets/Laoshi/Jaxine/陳嘉欣 resume.pdf";
 import oliviaPhoto from "@/assets/Laoshi/Olivia/olivia_pic.png";
 import oliviaTocfl1 from "@/assets/Laoshi/Olivia/olivia_tocfl_1.jpeg";
 import oliviaTocfl2 from "@/assets/Laoshi/Olivia/olivia_tocfl_2.jpeg";
+import ayakaPhoto from "@/assets/Laoshi/Ayaka/ayakafoto.jpeg";
+import ayakaTocfl from "@/assets/Laoshi/Ayaka/tocflb2.pdf";
+import schoolNkust from "@/assets/School/science.svg";
 
 export interface TeacherCertificate {
   label: string;
@@ -71,7 +74,8 @@ const schoolOptions: Record<string, TeacherSchool> = {
   chinaMedical: { name: "China Medical University, Taichung", logo: schoolMedical },
   chinaMedicalShuinan: { name: "China Medical University Shuinan Campus", logo: schoolMedical },
   mntnu: { name: "Mandarin Training Center of National Taiwan Normal University", logo: schoolMntnu },
-  fengchia: { name: "Taichung Fengchia University", logo: schoolFengchia }
+  fengchia: { name: "Taichung Fengchia University", logo: schoolFengchia },
+  nkust: { name: "National Kaohsiung University of Science and Technology", logo: schoolNkust }
 };
 
 const educationText = (schools: TeacherSchool[]) => schools.map((school) => school.name).join(" / ");
@@ -233,5 +237,22 @@ export const teachers: Teacher[] = [
       { label: "Sertifikat Olivia", file: oliviaTocfl1, type: "image" },
       { label: "TOCFL", file: oliviaTocfl2, type: "image" }
     ]
+  },
+  {
+    id: 11,
+    name: "Ayaka",
+    mandarinName: "溫愛麗 Ayaka Laoshi",
+    location: "Online",
+    schools: [schoolOptions.nkust],
+    education: educationText([schoolOptions.nkust]),
+    photo: ayakaPhoto,
+    degree: "Sertifikasi TOCFL",
+    xinzhongBackground: "Lulusan National Kaohsiung University of Science and Technology.",
+    certification: "TOCFL B2",
+    experience: "Berpengalaman mengajar bahasa Mandarin.",
+    certificates: [
+      { label: "TOCFL B2 - Ayaka", file: ayakaTocfl, type: "pdf" }
+    ]
   }
 ];
+
