@@ -18,6 +18,7 @@ import schoolXinZhong from "@/assets/School/xin_zhong.svg";
 import schoolFengchia from "@/assets/School/fengchia.svg";
 import schoolMntnu from "@/assets/School/mntnu.svg";
 import schoolNkust from "@/assets/School/science.svg";
+import schoolUph from "@/assets/School/UPH.svg";
 import whatsappIcon from "@/assets/Medsos/wa.svg";
 
 const highlightPoints = [
@@ -32,7 +33,8 @@ const schoolLogos = [
   { src: schoolMedical, alt: "China Medical University, Taichung" },
   { src: schoolFengchia, alt: "Taichung Fengchia University" },
   { src: schoolMntnu, alt: "Mandarin Training Center of National Taiwan Normal University" },
-  { src: schoolNkust, alt: "National Kaohsiung University of Science and Technology" }
+  { src: schoolNkust, alt: "National Kaohsiung University of Science and Technology" },
+  { src: schoolUph, alt: "Universitas Pelita Harapan" }
 ];
 
 const flagList = [

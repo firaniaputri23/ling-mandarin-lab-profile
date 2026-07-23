@@ -38,6 +38,10 @@ import oliviaTocfl2 from "@/assets/Laoshi/Olivia/olivia_tocfl_2.jpeg";
 import ayakaPhoto from "@/assets/Laoshi/Ayaka/ayakafoto.jpeg";
 import ayakaTocfl from "@/assets/Laoshi/Ayaka/tocflb2.pdf";
 import schoolNkust from "@/assets/School/science.svg";
+import schoolUph from "@/assets/School/UPH.svg";
+import taiyaPhoto from "@/assets/Laoshi/Taiya/taiya.svg";
+import taiyaHsk1 from "@/assets/Laoshi/Taiya/HSK6_1.jpeg";
+import taiyaHsk2 from "@/assets/Laoshi/Taiya/HSK6_2.pdf";
 
 export interface TeacherCertificate {
   label: string;
@@ -75,7 +79,8 @@ const schoolOptions: Record<string, TeacherSchool> = {
   chinaMedicalShuinan: { name: "China Medical University Shuinan Campus", logo: schoolMedical },
   mntnu: { name: "Mandarin Training Center of National Taiwan Normal University", logo: schoolMntnu },
   fengchia: { name: "Taichung Fengchia University", logo: schoolFengchia },
-  nkust: { name: "National Kaohsiung University of Science and Technology", logo: schoolNkust }
+  nkust: { name: "National Kaohsiung University of Science and Technology", logo: schoolNkust },
+  uph: { name: "Universitas Pelita Harapan", logo: schoolUph }
 };
 
 const educationText = (schools: TeacherSchool[]) => schools.map((school) => school.name).join(" / ");
@@ -207,7 +212,7 @@ export const teachers: Teacher[] = [
   {
     id: 9,
     name: "Ms. Jaxine",
-    mandarinName: "陳嘉欣",
+    mandarinName: "陳嘉欣 Laoshi",
     location: "Online",
     schools: [schoolOptions.chinaMedicalShuinan],
     education: educationText([schoolOptions.chinaMedicalShuinan]),
@@ -252,6 +257,23 @@ export const teachers: Teacher[] = [
     experience: "Berpengalaman mengajar bahasa Mandarin.",
     certificates: [
       { label: "TOCFL B2 - Ayaka", file: ayakaTocfl, type: "pdf" }
+    ]
+  },
+  {
+    id: 12,
+    name: "Janice Taiya",
+    mandarinName: "戴美钿 Janice Taiya Laoshi",
+    location: "Online",
+    schools: [schoolOptions.uph],
+    education: educationText([schoolOptions.uph]),
+    photo: taiyaPhoto,
+    degree: "Sertifikasi HSK 6",
+    xinzhongBackground: "Lulusan Universitas Pelita Harapan.",
+    certification: "HSK 6",
+    experience: "Berpengalaman mengajar bahasa Mandarin.",
+    certificates: [
+      { label: "HSK 6 (1) - Janice", file: taiyaHsk1, type: "image" },
+      { label: "HSK 6 (2) - Janice", file: taiyaHsk2, type: "pdf" }
     ]
   }
 ];
