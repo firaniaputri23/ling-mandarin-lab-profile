@@ -35,6 +35,7 @@ export default function Checkout() {
   const { item, removeFromCart } = useCart();
   const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isOwned, setIsOwned] = useState(false);
 
   // Load Midtrans Snap
   useEffect(() => {
@@ -66,6 +67,10 @@ export default function Checkout() {
   useEffect(() => {
     if (user?.email) {
       form.setValue('buyerEmail', user.email);
+      // MOCK LOGIC: Sementara karena belum ada webhook, kita anggap email dev ini sudah punya
+      if (['firaniaputriharsanti23@gmail.com', 'firaniaputri23@gmail.com', 'firania@gmail.com'].includes(user.email)) {
+        setIsOwned(true);
+      }
     }
   }, [user, form]);
 
@@ -168,97 +173,110 @@ export default function Checkout() {
             <div className="bg-white p-6 md:p-8 rounded-2xl shadow-soft">
               <h2 className="text-xl font-bold text-foreground mb-6 border-b pb-4">Data Pembeli</h2>
               
-              <div className="bg-[#6C2525]/5 border border-[#6C2525]/20 text-[#6C2525] p-4 rounded-xl flex items-start gap-3 mb-6">
-                <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <p className="text-sm leading-relaxed">
-                  <strong>Produk Digital.</strong> Anda tidak perlu memasukkan alamat pengiriman fisik. Link akses e-book akan dikirimkan ke email dan tersedia di akun Anda setelah pembayaran selesai.
-                </p>
-              </div>
+                <div className="bg-[#6C2525]/5 border border-[#6C2525]/20 text-[#6C2525] p-4 rounded-xl flex items-start gap-3 mb-6">
+                  <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm leading-relaxed">
+                    <strong>Produk Digital.</strong> Anda tidak perlu memasukkan alamat pengiriman fisik. Link akses e-book akan dikirimkan ke email dan tersedia di akun Anda setelah pembayaran selesai.
+                  </p>
+                </div>
 
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  
-                  <FormField
-                    control={form.control}
-                    name="buyerName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nama Lengkap</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Masukkan nama Anda" className="bg-sand/30" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="buyerEmail"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder="email@contoh.com" className="bg-sand/30" disabled={!!user} {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          E-book akan dikirim ke email ini. Pastikan aktif.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="buyerWhatsapp"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nomor WhatsApp</FormLabel>
-                        <FormControl>
-                          <Input type="tel" placeholder="081234567890" className="bg-sand/30" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="pt-4 border-t">
-                    <FormField
-                      control={form.control}
-                      name="termsAccepted"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4 bg-sand/20 border">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="font-medium">
-                              Saya menyetujui Syarat & Ketentuan dan Kebijakan Privasi
-                            </FormLabel>
-                            <FormDescription>
-                              Saya memahami bahwa produk digital yang telah dibeli tidak dapat direfund.
-                            </FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+                {isOwned ? (
+                  <div className="bg-green-50 border border-green-200 p-8 rounded-2xl flex flex-col items-center justify-center text-center gap-4">
+                    <ShieldCheck className="w-12 h-12 text-green-600" />
+                    <div>
+                      <h3 className="text-xl font-bold text-green-800 mb-2">Anda Sudah Memiliki E-Book Ini!</h3>
+                      <p className="text-green-700">Sistem mendeteksi bahwa akun email <strong>{user?.email}</strong> sudah melakukan pembelian untuk buku ini sebelumnya.</p>
+                    </div>
+                    <Button onClick={() => navigate('/library')} className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold h-12 px-8">
+                      Buka Library Sekarang
+                    </Button>
                   </div>
+                ) : (
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      
+                      <FormField
+                        control={form.control}
+                        name="buyerName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nama Lengkap</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Masukkan nama Anda" className="bg-sand/30" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <Button 
-                    type="submit" 
-                    className="w-full hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg mt-6"
-                    disabled={isProcessing}
-                  >
-                    {isProcessing ? 'Memproses...' : `Bayar Sekarang — ${formatPrice(grandTotal)}`}
-                  </Button>
-                </form>
-              </Form>
+                      <FormField
+                        control={form.control}
+                        name="buyerEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="email@contoh.com" className="bg-sand/30" disabled={!!user} {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              E-book akan dikirim ke email ini. Pastikan aktif.
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="buyerWhatsapp"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nomor WhatsApp</FormLabel>
+                            <FormControl>
+                              <Input type="tel" placeholder="081234567890" className="bg-sand/30" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="pt-4 border-t">
+                        <FormField
+                          control={form.control}
+                          name="termsAccepted"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4 bg-sand/20 border">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel className="font-medium">
+                                  Saya menyetujui Syarat & Ketentuan dan Kebijakan Privasi
+                                </FormLabel>
+                                <FormDescription>
+                                  Saya memahami bahwa produk digital yang telah dibeli tidak dapat direfund.
+                                </FormDescription>
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <Button 
+                        type="submit" 
+                        className="w-full hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg mt-6"
+                        disabled={isProcessing}
+                      >
+                        {isProcessing ? 'Memproses...' : `Bayar Sekarang — ${formatPrice(grandTotal)}`}
+                      </Button>
+                    </form>
+                  </Form>
+                )}
+              </div>
             </div>
-          </div>
 
           {/* Rincian Kanan */}
           <div className="lg:col-span-5 space-y-6">
@@ -303,13 +321,15 @@ export default function Checkout() {
                 <span>Pembayaran aman via Midtrans (QRIS, Transfer, e-Wallet)</span>
               </div>
               
-              <Button 
-                onClick={form.handleSubmit(onSubmit)}
-                className="w-full lg:hidden bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg mt-6"
-                disabled={isProcessing}
-              >
-                {isProcessing ? 'Memproses...' : `Bayar Sekarang`}
-              </Button>
+              {!isOwned && (
+                <Button 
+                  onClick={form.handleSubmit(onSubmit)}
+                  className="w-full lg:hidden bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg mt-6"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? 'Memproses...' : `Bayar Sekarang`}
+                </Button>
+              )}
             </div>
           </div>
 

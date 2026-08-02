@@ -4,7 +4,10 @@ import { pdfjs, Document, Page } from 'react-pdf';
 import HTMLFlipBook from 'react-pageflip';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { ZoomIn, ZoomOut, BookOpen, Scroll, ChevronLeft } from 'lucide-react';
+import { ZoomIn, ZoomOut, BookOpen, Scroll, ChevronLeft, Bookmark, Sparkles, Lock } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import QuizModal, { QUIZ_DATABASE } from '@/components/reader/QuizModal';
+import { Input } from '@/components/ui/input';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -37,11 +40,23 @@ export default function Read() {
   
   // State untuk fitur advanced
   const [viewMode, setViewMode] = useState<'flip' | 'scroll'>(window.innerWidth < 768 ? 'scroll' : 'flip');
+  const [isSinglePageFlip, setIsSinglePageFlip] = useState(window.innerWidth < 768);
   const [scale, setScale] = useState(1.0);
   const [currentPageScroll, setCurrentPageScroll] = useState(1);
   const [bookDim, setBookDim] = useState({ width: 450, height: 636 });
   
-  const buyerEmail = "user@example.com"; 
+  // Advanced Features State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [bookmarks, setBookmarks] = useState<number[]>([]);
+  const [passedQuizzes, setPassedQuizzes] = useState<number[]>([]);
+  const [goToPageInput, setGoToPageInput] = useState('');
+  const [activeQuizPage, setActiveQuizPage] = useState<number | null>(null);
+  const [initialPage, setInitialPage] = useState(0);
+  
+  const { user } = useAuth();
+  const buyerEmail = user?.email || "Tamu / Guest"; 
+  const displayTitle = slug === 'test' ? 'Rahasia Huruf Mandarin (Vol. 1)' : slug;
+  
   const flipBookRef = useRef<any>(null);
 
   useEffect(() => {
@@ -98,6 +113,106 @@ export default function Read() {
     setNumPages(numPages);
   }
 
+  useEffect(() => {
+    if (slug) {
+      const savedB = localStorage.getItem(`bookmarks_${slug}`);
+      if (savedB) setBookmarks(JSON.parse(savedB));
+      
+      const savedQ = localStorage.getItem(`passed_${slug}`);
+      if (savedQ) setPassedQuizzes(JSON.parse(savedQ));
+      
+      const lastRead = localStorage.getItem(`lastRead_${slug}`);
+      if (lastRead) {
+        const page = parseInt(lastRead);
+        setInitialPage(page - 1); // 0-indexed for HTMLFlipBook
+        setCurrentPageScroll(page);
+        setCurrentPage(page);
+      }
+    }
+  }, [slug]);
+
+  // Evaluasi perpindahan halaman
+  const handlePageChange = (newPage: number) => {
+    // Cek apakah mereka melewati halaman kuis yang belum lulus
+    const quizPages = Object.keys(QUIZ_DATABASE).map(Number).sort((a, b) => a - b);
+    
+    // Cari apakah ada halaman kuis yang ada di ANTARA (atau SAMA DENGAN) halaman yang mereka lewati, dan belum lulus
+    // Misal: mereka dari halaman 10, mau ke halaman 12. Kuis ada di halaman 11.
+    const lockedPage = quizPages.find(qp => newPage > qp && !passedQuizzes.includes(qp));
+    
+    if (lockedPage) {
+      // Snap-back!
+      toast.error(`Anda harus lulus kuis di halaman ${lockedPage} terlebih dahulu!`);
+      
+      // Kembalikan ke halaman kuis
+      if (viewMode === 'flip') {
+         flipBookRef.current?.pageFlip()?.turnToPage(lockedPage - 1); // 0-indexed
+      } else {
+         setCurrentPageScroll(lockedPage);
+      }
+      setCurrentPage(lockedPage);
+      setActiveQuizPage(lockedPage); // Langsung buka kuisnya!
+    } else {
+      setCurrentPage(newPage);
+      localStorage.setItem(`lastRead_${slug}`, newPage.toString());
+    }
+  };
+
+  useEffect(() => {
+    if (viewMode === 'scroll') handlePageChange(currentPageScroll);
+  }, [currentPageScroll, viewMode]);
+
+  const handlePassQuiz = (pageId: number) => {
+    setPassedQuizzes(prev => {
+      if (prev.includes(pageId)) return prev;
+      const newP = [...prev, pageId];
+      localStorage.setItem(`passed_${slug}`, JSON.stringify(newP));
+      return newP;
+    });
+    setActiveQuizPage(null);
+    toast.success("Hore! Kuis Lulus! Anda bisa lanjut membaca.");
+  };
+
+  const toggleBookmark = () => {
+    setBookmarks(prev => {
+      const newB = prev.includes(currentPage) ? prev.filter(p => p !== currentPage) : [...prev, currentPage].sort((a,b) => a-b);
+      localStorage.setItem(`bookmarks_${slug}`, JSON.stringify(newB));
+      toast.success(prev.includes(currentPage) ? 'Bookmark dihapus' : `Halaman ${currentPage} disimpan di bookmark`);
+      return newB;
+    });
+  };
+
+  const handleGoToPage = (e: React.FormEvent) => {
+    e.preventDefault();
+    const p = parseInt(goToPageInput);
+    if (!p || !numPages || p < 1 || p > numPages) {
+       toast.error(`Masukkan halaman 1 - ${numPages}`);
+       return;
+    }
+    
+    const quizPages = Object.keys(QUIZ_DATABASE).map(Number).sort((a, b) => a - b);
+    const lockedPage = quizPages.find(qp => p > qp && !passedQuizzes.includes(qp));
+    if (lockedPage) {
+      toast.error(`Anda harus lulus kuis di halaman ${lockedPage} terlebih dahulu!`);
+      jumpToPage(lockedPage);
+      setActiveQuizPage(lockedPage);
+      return;
+    }
+    
+    jumpToPage(p);
+  };
+
+  const jumpToPage = (p: number) => {
+    if (viewMode === 'flip') {
+       flipBookRef.current?.pageFlip()?.turnToPage(p - 1);
+       // event onFlip akan memanggil handlePageChange nanti
+    } else {
+       setCurrentPageScroll(p);
+       // event useEffect currentPageScroll akan memanggil handlePageChange
+    }
+    setGoToPageInput('');
+  };
+
   const handleZoomIn = () => setScale(s => Math.min(s + 0.2, 2.5));
   const handleZoomOut = () => setScale(s => Math.max(s - 0.2, 0.6));
 
@@ -118,7 +233,7 @@ export default function Read() {
           <Button variant="ghost" size="sm" onClick={() => navigate('/library')} className="text-zinc-400 hover:text-white">
             <ChevronLeft className="w-4 h-4 mr-1" /> Library
           </Button>
-          <h1 className="font-bold text-sm md:text-base truncate max-w-[150px] md:max-w-xs">{slug}</h1>
+          <h1 className="font-bold text-sm md:text-base truncate max-w-[150px] md:max-w-xs">{displayTitle}</h1>
         </div>
 
         <div className="flex items-center gap-2 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
@@ -140,6 +255,44 @@ export default function Read() {
           >
             <Scroll className="w-4 h-4 mr-2" /> Scroll
           </Button>
+          {viewMode === 'flip' && (
+             <>
+               <div className="w-px h-6 bg-zinc-800 mx-1"></div>
+               <Button 
+                 variant={isSinglePageFlip ? 'secondary' : 'ghost'} 
+                 size="sm" 
+                 onClick={() => setIsSinglePageFlip(true)}
+                 className={`text-xs ${isSinglePageFlip ? 'bg-zinc-800' : ''}`}
+               >
+                 1 Hal
+               </Button>
+               <Button 
+                 variant={!isSinglePageFlip ? 'secondary' : 'ghost'} 
+                 size="sm" 
+                 onClick={() => setIsSinglePageFlip(false)}
+                 className={`text-xs ${!isSinglePageFlip ? 'bg-zinc-800' : ''}`}
+               >
+                 2 Hal
+               </Button>
+             </>
+          )}
+          <div className="w-px h-6 bg-zinc-800 mx-1"></div>
+          <Button variant="ghost" size="sm" onClick={toggleBookmark} className={bookmarks.includes(currentPage) ? 'text-primary' : 'text-zinc-400'}>
+            <Bookmark className={`w-4 h-4 mr-1 md:mr-2 ${bookmarks.includes(currentPage) ? 'fill-current' : ''}`} />
+            <span className="hidden md:inline">{bookmarks.includes(currentPage) ? 'Tersimpan' : 'Simpan'}</span>
+          </Button>
+          <div className="w-px h-6 bg-zinc-800 mx-1 hidden md:block"></div>
+          <form onSubmit={handleGoToPage} className="hidden md:flex items-center gap-1">
+            <Input 
+              type="number" 
+              placeholder="Hal" 
+              value={goToPageInput} 
+              onChange={e => setGoToPageInput(e.target.value)}
+              className="w-16 h-8 bg-zinc-800 border-zinc-700 text-white text-center text-xs focus-visible:ring-1"
+              min={1} max={numPages || 100}
+            />
+            <Button type="submit" size="sm" variant="secondary" className="h-8 text-xs px-2">Go</Button>
+          </form>
         </div>
 
         <div className="flex items-center gap-2 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
@@ -156,6 +309,35 @@ export default function Read() {
       {/* VIEWER AREA */}
       <main className="flex-1 w-full flex justify-center overflow-auto relative p-4 md:p-8">
         
+        {/* FLOATING QUIZ BUTTON */}
+        {slug === 'test' && (QUIZ_DATABASE[currentPage] || QUIZ_DATABASE[currentPage + 1]) && (
+          <div className="fixed bottom-24 right-4 md:right-8 z-50 animate-bounce">
+            {(() => {
+               // Cari halaman kuis yang relevan (bisa currentPage atau currentPage + 1 di mode spread desktop)
+               const quizPage = QUIZ_DATABASE[currentPage] ? currentPage : currentPage + 1;
+               const isPassed = passedQuizzes.includes(quizPage);
+               
+               return (
+                 <Button 
+                   onClick={() => setActiveQuizPage(quizPage)} 
+                   className={`${isPassed ? 'bg-green-600 hover:bg-green-700' : 'bg-primary hover:bg-primary/90'} text-white shadow-2xl rounded-full px-4 md:px-6 py-4 md:py-6 text-sm md:text-lg font-bold border-4 border-white/20`}
+                 >
+                   {isPassed ? <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 mr-2 text-white" /> : <Lock className="w-5 h-5 md:w-6 md:h-6 mr-2 text-yellow-300" />}
+                   {isPassed ? 'Kuis Selesai (Lulus)' : 'Mulai Kuis Terkunci'}
+                 </Button>
+               );
+            })()}
+          </div>
+        )}
+        
+        <QuizModal 
+          isOpen={activeQuizPage !== null} 
+          onClose={() => setActiveQuizPage(null)} 
+          questions={activeQuizPage ? QUIZ_DATABASE[activeQuizPage] : []} 
+          onPass={() => activeQuizPage && handlePassQuiz(activeQuizPage)}
+          pageId={activeQuizPage || 0}
+        />
+
         {/* WATERMARK ANTI-SCREENSHOT (Tetap di luar container supaya menimpa semuanya) */}
         <div className="fixed inset-0 z-40 pointer-events-none flex flex-col items-center justify-center opacity-[0.03] rotate-[-30deg]">
           <p className="text-4xl md:text-8xl font-black text-white break-all text-center">{buyerEmail}</p>
@@ -189,9 +371,11 @@ export default function Read() {
                   size="fixed"
                   maxShadowOpacity={0.3}
                   showCover={true}
+                  startPage={initialPage}
                   mobileScrollSupport={false}
                   useMouseEvents={true}
-                  usePortrait={true} // Boleh portrait (1 halaman) di HP
+                  usePortrait={isSinglePageFlip} // Boleh portrait (1 halaman) sesuai state
+                  onFlip={(e: any) => handlePageChange(e.data + 1)}
                   ref={flipBookRef}
                   className="bg-transparent"
                   style={{ margin: '0 auto' }}
