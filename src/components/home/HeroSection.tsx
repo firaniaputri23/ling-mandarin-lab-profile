@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { whatsappUrl } from "@/data/stats";
 import logoFull from "@/assets/LOGO.svg";
 import panda1 from "@/assets/PandaDialog/1.svg";
@@ -58,6 +59,7 @@ const typewriterPhrases = [
 ];
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [activeSlide, setActiveSlide] = useState(0);
   const [typewriterIndex, setTypewriterIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -169,15 +171,29 @@ const HeroSection = () => {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 pt-2 md:flex-row sm:items-center">
+            <div className="flex flex-col gap-3 pt-2 lg:flex-row flex-wrap sm:items-center">
               <Button
                 size="lg"
                 onClick={handleWhatsappClick}
-                className="relative py-5 md:py-8 lg:px-6 w-full md:w-auto sm:min-w-[260px] md:min-w-[400px]  flex-1 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+                className="relative py-5 md:py-8 lg:px-6 w-full md:w-auto sm:min-w-[260px] flex-1 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
               >
                 <span className="flex w-full items-center justify-center gap-2">
                   <img src={whatsappIcon} alt="WhatsApp" className="size-7" />
                   <p className="text-base sm:text-lg">Chat WA: Harga & Jadwal</p>
+                </span>
+              </Button>
+
+              <Button
+                size="lg"
+                onClick={() => navigate('/store')}
+                className="relative py-5 md:py-8 lg:px-6 w-full md:w-auto sm:min-w-[220px] flex-1 rounded-full bg-[#6C2525] text-white shadow-lg hover:bg-[#521C1C] hover:scale-105 transition-all"
+              >
+                <span className="flex w-full items-center justify-center gap-2">
+                  <BookOpen className="size-5 sm:size-7 shrink-0" />
+                  <p className="text-sm sm:text-lg font-bold whitespace-nowrap">
+                    <span className="hidden lg:inline xl:hidden">E-BOOK SALE</span>
+                    <span className="inline lg:hidden xl:inline">E-BOOK BARU: SALE 75k to 60k</span>
+                  </p>
                 </span>
               </Button>
 
