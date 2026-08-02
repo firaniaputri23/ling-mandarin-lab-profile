@@ -12,6 +12,7 @@ import Checkout from "./pages/Checkout";
 import PaymentPending from "./pages/PaymentPending";
 import Library from "./pages/Library";
 import { CartProvider } from "./hooks/useCart";
+import { AuthProvider } from "./hooks/useAuth";
 import { CartSheet } from "./components/store/CartSheet";
 
 const queryClient = new QueryClient();
@@ -19,24 +20,26 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <CartProvider>
-        <BrowserRouter>
-          <CartSheet />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/tentang" element={<Tentang />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="/read/:slug" element={<Read />} />
-            <Route path="/store" element={<Store />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/payment/pending" element={<PaymentPending />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <CartProvider>
+          <BrowserRouter>
+            <CartSheet />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/tentang" element={<Tentang />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/read/:slug" element={<Read />} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment/pending" element={<PaymentPending />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

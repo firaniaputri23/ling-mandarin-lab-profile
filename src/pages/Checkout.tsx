@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useCart } from '@/hooks/useCart';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -32,6 +33,7 @@ const formSchema = z.object({
 export default function Checkout() {
   const navigate = useNavigate();
   const { item, removeFromCart } = useCart();
+  const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Load Midtrans Snap
@@ -55,11 +57,17 @@ export default function Checkout() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       buyerName: '',
-      buyerEmail: '',
+      buyerEmail: user?.email || '',
       buyerWhatsapp: '',
       termsAccepted: false,
     },
   });
+
+  useEffect(() => {
+    if (user?.email) {
+      form.setValue('buyerEmail', user.email);
+    }
+  }, [user, form]);
 
   if (!item) {
     return (
@@ -191,7 +199,7 @@ export default function Checkout() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="email@contoh.com" className="bg-sand/30" {...field} />
+                          <Input type="email" placeholder="email@contoh.com" className="bg-sand/30" disabled={!!user} {...field} />
                         </FormControl>
                         <FormDescription>
                           E-book akan dikirim ke email ini. Pastikan aktif.
