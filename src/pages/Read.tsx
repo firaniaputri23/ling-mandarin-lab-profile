@@ -216,6 +216,37 @@ export default function Read() {
   const handleZoomIn = () => setScale(s => Math.min(s + 0.2, 2.5));
   const handleZoomOut = () => setScale(s => Math.max(s - 0.2, 0.6));
 
+  const handleScreenTap = (e: React.MouseEvent) => {
+    // Abaikan jika klik terjadi di dalam modal kuis, toolbar, atau tombol
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('input') || target.closest('.z-50') || target.closest('.z-\\[100\\]')) {
+      return;
+    }
+    
+    // Abaikan jika ada seleksi teks (berarti user sedang nge-block teks, bukan nge-tap)
+    if (window.getSelection()?.toString()) {
+      return;
+    }
+
+    const x = e.clientX;
+    const width = window.innerWidth;
+    
+    // Tap area 30% Kanan = Next, 30% Kiri = Prev
+    if (x > width * 0.7) {
+      if (viewMode === 'flip') {
+        flipBookRef.current?.pageFlip()?.flipNext();
+      } else {
+        setCurrentPageScroll(p => (numPages ? Math.min(numPages, p + 1) : p + 1));
+      }
+    } else if (x < width * 0.3) {
+      if (viewMode === 'flip') {
+        flipBookRef.current?.pageFlip()?.flipPrev();
+      } else {
+        setCurrentPageScroll(p => Math.max(1, p - 1));
+      }
+    }
+  };
+
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-zinc-900 text-white">Loading e-book...</div>;
   if (!pdfUrl) return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-900 text-white gap-4">
@@ -307,8 +338,19 @@ export default function Read() {
       </header>
 
       {/* VIEWER AREA */}
-      <main className="flex-1 w-full flex justify-center overflow-auto relative p-4 md:p-8">
+      <main 
+        className="flex-1 w-full flex justify-center overflow-auto relative p-4 md:p-8 cursor-pointer"
+        onClick={handleScreenTap}
+      >
         
+        {/* Indikator Tap Kiri/Kanan (Samar) */}
+        <div className="fixed left-0 top-1/2 -translate-y-1/2 w-[30%] h-full opacity-0 pointer-events-none flex items-center p-4">
+           <ChevronLeft className="w-12 h-12 text-white/20" />
+        </div>
+        <div className="fixed right-0 top-1/2 -translate-y-1/2 w-[30%] h-full opacity-0 pointer-events-none flex items-center justify-end p-4">
+           <ChevronLeft className="w-12 h-12 text-white/20 rotate-180" />
+        </div>
+
         {/* FLOATING QUIZ BUTTON */}
         {slug === 'test' && (QUIZ_DATABASE[currentPage] || QUIZ_DATABASE[currentPage + 1]) && (
           <div className="fixed bottom-24 right-4 md:right-8 z-50 animate-bounce">
