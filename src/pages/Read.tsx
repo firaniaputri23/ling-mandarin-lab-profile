@@ -310,7 +310,7 @@ export default function Read() {
           <div className="w-px h-6 bg-zinc-800 mx-1"></div>
           <Button variant="ghost" size="sm" onClick={toggleBookmark} className={bookmarks.includes(currentPage) ? 'text-primary' : 'text-zinc-400'}>
             <Bookmark className={`w-4 h-4 mr-1 md:mr-2 ${bookmarks.includes(currentPage) ? 'fill-current' : ''}`} />
-            <span className="hidden md:inline">{bookmarks.includes(currentPage) ? 'Tersimpan' : 'Simpan'}</span>
+            <span className="hidden md:inline">{bookmarks.includes(currentPage) ? 'Bookmarked' : 'Bookmark'}</span>
           </Button>
           <div className="w-px h-6 bg-zinc-800 mx-1 hidden md:block"></div>
           <form onSubmit={handleGoToPage} className="hidden md:flex items-center gap-1">
@@ -365,7 +365,7 @@ export default function Read() {
                    className={`${isPassed ? 'bg-green-600 hover:bg-green-700' : 'bg-primary hover:bg-primary/90'} text-white shadow-2xl rounded-full px-4 md:px-6 py-4 md:py-6 text-sm md:text-lg font-bold border-4 border-white/20`}
                  >
                    {isPassed ? <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 mr-2 text-white" /> : <Lock className="w-5 h-5 md:w-6 md:h-6 mr-2 text-yellow-300" />}
-                   {isPassed ? 'Kuis Selesai (Lulus)' : 'Mulai Kuis Terkunci'}
+                   {isPassed ? `Kuis Bab (Hal. ${quizPage}) Selesai` : `Mulai Kuis Bab (Hal. ${quizPage})`}
                  </Button>
                );
             })()}
