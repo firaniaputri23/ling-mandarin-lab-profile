@@ -211,7 +211,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-sand w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-border">
+      <div className="bg-sand w-full max-w-xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-border">
         
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b bg-white">
@@ -222,21 +222,45 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
         </div>
 
         {/* Body */}
-        <div className="p-6 md:p-8 flex-1 bg-cream/30">
+        <div className="p-6 md:p-8 flex-1 bg-cream/30 overflow-y-auto">
           {isFinished ? (
-            <div className="text-center py-8">
-              <div className="text-6xl mb-4">🏆</div>
-              <h3 className="text-2xl font-bold text-foreground mb-2">
-                Kuis Selesai!
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Skor Anda: <span className="font-bold text-xl text-primary">{score} / {questions.length}</span>
-              </p>
-              
-              <div className="flex gap-4 justify-center">
-                <Button onClick={handleFinish} className="w-64 bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl">
-                  Lanjutkan Membaca <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+            <div className="flex flex-col h-full">
+              <div className="text-center py-4 shrink-0">
+                <div className="text-6xl mb-4">🏆</div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Kuis Selesai!
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  Skor Anda: <span className="font-bold text-xl text-primary">{score} / {questions.length}</span>
+                </p>
+                <div className="flex justify-center">
+                  <Button onClick={handleFinish} className="w-full max-w-xs bg-primary hover:bg-primary/90 text-primary-foreground text-base py-6 rounded-xl">
+                    Lanjutkan Membaca <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="mt-8 text-left border-t pt-6 border-border">
+                <h4 className="font-bold text-lg mb-4 text-foreground flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  Pembahasan Kuis
+                </h4>
+                <div className="space-y-4">
+                  {questions.map((q, idx) => {
+                    const correctOpt = q.options.find(o => o.label === q.answer);
+                    return (
+                      <div key={q.id} className="bg-white p-4 rounded-xl border shadow-sm">
+                        <p className="font-medium text-foreground mb-3">{idx + 1}. {q.question}</p>
+                        <div className="bg-green-50 text-green-800 px-3 py-2 rounded-lg mb-3 border border-green-100 text-sm">
+                          <span className="font-bold">Jawaban Benar:</span> {correctOpt?.label} - {correctOpt?.text}
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                          {q.explanation}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ) : (
