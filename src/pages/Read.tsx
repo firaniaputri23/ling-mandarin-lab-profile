@@ -4,7 +4,7 @@ import { pdfjs, Document, Page } from 'react-pdf';
 import HTMLFlipBook from 'react-pageflip';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { ZoomIn, ZoomOut, BookOpen, Scroll, ChevronLeft, Bookmark, Sparkles, Lock } from 'lucide-react';
+import { ZoomIn, ZoomOut, BookOpen, Scroll, ChevronLeft, Bookmark, Sparkles, Lock, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import QuizModal, { QUIZ_DATABASE } from '@/components/reader/QuizModal';
 import { Input } from '@/components/ui/input';
