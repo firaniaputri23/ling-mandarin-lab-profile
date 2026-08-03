@@ -160,6 +160,87 @@ export const QUIZ_TITLES: Record<number, string> = {
   83: "Bab 11 Unsur Tanah (土 (tǔ))"
 };
 
+export const HANZI_DICT: Record<string, string> = {
+  "喝": "Minum", "吃": "Makan", "咬": "Menggigit", "吞": "Menelan",
+  "答": "Menjawab", "叫": "Memanggil", "问": "Bertanya", "告": "Memberitahu",
+  "响": "Nyaring / Bunyi", "味": "Rasa / Bau", "善": "Baik", "古": "Kuno",
+  "嘴": "Mulut", "喉咙": "Tenggorokan", "味道": "Rasa", "唇": "Bibir",
+  "口": "Mulut", "听": "Mendengar", "告诉": "Memberitahu", "吸": "Menghisap",
+  "左": "Kiri", "右": "Kanan", "和": "Dan / Dengan", "台": "Meja / Mimbar",
+  "嚼": "Mengunyah", "吐": "Meludah / Muntah", "读": "Membaca", "写": "Menulis",
+  "说": "Berbicara", "言": "Kata / Ucapan", "语": "Bahasa", "词": "Kosakata",
+  "话": "Perkataan", "求": "Memohon", "请": "Silakan / Tolong", "谢": "Terima kasih",
+  "让": "Membiarkan", "记": "Mengingat", "忘": "Lupa", "想": "Berpikir / Ingin",
+  "念": "Membaca / Merindukan", "客气": "Sungkan", "对不起": "Maaf", "感谢": "Berterima kasih",
+  "没关系": "Tidak apa-apa", "认": "Mengenali", "识": "Mengenal / Tahu", "知": "Tahu",
+  "觉": "Merasa", "谈": "Berbincang", "论": "Membahas", "讲": "Bicara / Menjelaskan",
+  "议": "Bermusyawarah", "真": "Benar / Asli", "谎": "Bohong", "骗": "Menipu",
+  "假": "Palsu", "调": "Mengatur / Menyesuaikan", "理": "Mengurus", "整": "Mengatur / Rapi",
+  "治": "Mengobati / Mengatur", "饱": "Kenyang", "饿": "Lapar", "渴": "Haus",
+  "累": "Lelah", "饭": "Nasi / Makanan", "菜": "Sayur / Masakan", "肉": "Daging",
+  "面": "Mie / Tepung", "饼": "Kue kering / Biskuit", "包": "Roti isi (bakpao)", "糕": "Kue",
+  "卷": "Gulungan", "水": "Air", "酒": "Arak / Minuman keras", "茶": "Teh",
+  "奶": "Susu", "盐": "Garam", "酱": "Saus / Kecap", "糖": "Gula / Permen",
+  "醋": "Cuka", "香": "Harum / Wangi", "臭": "Bau busuk", "酸": "Asam",
+  "甜": "Manis", "米": "Beras", "谷": "Biji-bijian / Lembah", "粥": "Bubur",
+  "冷": "Dingin", "热": "Panas", "浊": "Keruh", "脏": "Kotor",
+  "清": "Jernih", "净": "Bersih", "浮": "Mengapung", "沉": "Tenggelam",
+  "没": "Tenggelam / Tidak ada", "落": "Jatuh / Turun", "洗": "Mencuci", "刷": "Menyikat",
+  "擦": "Mengelap", "扫": "Menyapu", "洒": "Memercikkan", "浇": "Menyiram",
+  "泼": "Menyiram / Menyimbah", "淋": "Menyiram / Basah kuyup", "海": "Laut", "湖": "Danau",
+  "河": "Sungai", "江": "Sungai besar", "汁": "Jus / Sari", "汤": "Sup / Kuah",
+  "液": "Cairan", "汗": "Keringat", "泪": "Air mata", "血": "Darah",
+  "深": "Dalam", "浅": "Dangkal", "低": "Rendah", "短": "Pendek",
+  "涨": "Naik / Pasang", "流": "Mengalir", "涌": "Meluap / Menyembur", "波": "Gelombang",
+  "炒": "Menumis", "煮": "Merebus / Memasak", "烤": "Memanggang", "蒸": "Mengukus",
+  "温": "Hangat", "凉": "Sejuk", "火": "Api", "焰": "Nyala api",
+  "光": "Cahaya", "烟": "Asap", "烧": "Membakar", "点": "Menyalakan / Titik",
+  "熄": "Memadamkan (api)", "灭": "Memadamkan / Musnah", "糊": "Gosong / Hangus", "黑": "Hitam",
+  "焦": "Gosong", "黄": "Kuning", "灾": "Bencana", "难": "Sulit / Bencana",
+  "祸": "Malapetaka", "险": "Bahaya", "煤": "Batu bara", "炭": "Arang",
+  "灰": "Abu", "木": "Kayu", "叶": "Daun", "枝": "Dahan / Ranting",
+  "干": "Batang / Kering", "根": "Akar", "桌椅": "Meja / Kursi", "床柜": "Ranjang / Lemari",
+  "门窗": "Pintu / Jendela", "灯镜": "Lampu / Cermin", "树根": "Pohon / Akar", "草花": "Rumput / Bunga",
+  "叶枝": "Daun / Ranting", "果籽": "Buah / Biji", "桃梅": "Persik / Plum", "苹果": "Apel",
+  "橘柚": "Jeruk / Jeruk bali", "瓜豆": "Melon / Kacang", "板": "Papan", "块": "Potong / Bongkah",
+  "条": "Helai / Batang", "几": "Meja kecil / Beberapa", "桌": "Meja", "案": "Meja panjang / Kasus",
+  "碗": "Mangkuk", "杯子": "Gelas / Cangkir", "盘": "Piring", "瓶": "Botol",
+  "他": "Dia (laki-laki)", "她": "Dia (perempuan)", "它": "Itu (hewan/benda)", "男": "Pria",
+  "姐妹": "Kakak / Adik perempuan", "哥弟": "Kakak / Adik laki-laki", "姑姨": "Bibi dari ayah / Bibi dari ibu", "妈奶": "Ibu / Nenek",
+  "好": "Baik / Bagus", "美": "Indah / Cantik", "妙": "Luar biasa / Ajaib", "奇": "Aneh / Ajaib",
+  "恕": "Memaafkan", "怨": "Mengeluh / Membenci", "恨": "Benci", "怒": "Marah",
+  "恋": "Cinta / Pacaran", "爱": "Cinta / Suka", "婚": "Menikah", "情": "Perasaan / Cinta",
+  "服": "Pakaian / Tunduk", "妆": "Riasan / Berdandan", "衣": "Pakaian", "打": "Memukul / Menelepon",
+  "坏": "Rusak / Buruk", "错": "Salah", "差": "Kurang / Buruk", "果": "Buah",
+  "树": "Pohon", "花": "Bunga", "草": "Rumput", "草莓": "Stroberi",
+  "香蕉": "Pisang", "西瓜": "Semangka", "葱": "Daun bawang", "蒜": "Bawang putih",
+  "姜": "Jahe", "椒": "Lada / Cabai", "苦": "Pahit", "辣": "Pedas",
+  "拍": "Menepuk / Memotret", "接": "Menerima / Menjemput", "挂": "Menggantung / Menutup telepon", "拉": "Menarik",
+  "推": "Mendorong", "扶": "Menopang / Membantu berdiri", "抱": "Memeluk", "找": "Mencari",
+  "看": "Melihat", "见": "Melihat / Bertemu", "寻": "Mencari", "炸": "Menggoreng (deep fry)",
+  "拌": "Mengaduk / Mencampur", "指": "Menunjuk", "画": "Menggambar", "按": "Menekan",
+  "抬": "Mengangkat", "提": "Menjinjing / Mengangkat", "挑": "Memilih / Memikul", "背": "Menggendong / Punggung",
+  "抓": "Menangkap / Mencengkeram", "放": "Meletakkan / Melepaskan", "扔": "Melempar", "丢": "Kehilangan / Membuang",
+  "踢": "Menendang", "跑": "Berlari", "跳": "Melompat", "步": "Langkah",
+  "坐躺": "Duduk / Berbaring", "蹲爬": "Jongkok / Merangkak", "跪站": "Berlutut / Berdiri", "走跑": "Berjalan / Berlari",
+  "跳跃": "Melompat / Meloncat", "爬滚": "Merangkak / Berguling", "飞游": "Terbang / Berenang", "追逃": "Mengejar / Melarikan diri",
+  "跟跑": "Mengikuti / Berlari", "随步": "Mengikuti / Berjalan", "迎送": "Menyambut / Mengantar", "踩": "Menginjak",
+  "踏": "Menginjak", "跨": "Melangkah", "迈": "Melangkah", "篮球": "Bola basket",
+  "排球": "Bola voli", "足球": "Sepak bola", "网球": "Tenis", "跑跃": "Berlari / Meloncat",
+  "走跳": "Berjalan / Melompat", "飞爬": "Terbang / Merangkak", "游滚": "Berenang / Berguling", "蹲跪": "Jongkok / Berlutut",
+  "坐站": "Duduk / Berdiri", "躺趴": "Berbaring / Tengkurap", "靠倚": "Bersandar", "墙": "Tembok / Dinding",
+  "门": "Pintu", "窗": "Jendela", "顶": "Atap / Puncak", "种植": "Menanam",
+  "开垦": "Membuka lahan", "收割": "Memanen", "浇水": "Menyiram air", "泥": "Lumpur",
+  "沙": "Pasir", "壤": "Tanah", "石": "Batu", "坟": "Makam / Kuburan",
+  "墓": "Makam", "碑": "Prasasti / Batu nisan", "陵": "Makam kaisar / Bukit", "崎岖": "Terjal / Tidak rata",
+  "平坦": "Datar / Rata", "陡峭": "Curam", "弯曲": "Melengkung / Berbelok", "坚": "Keras / Kokoh",
+  "软": "Lunak / Lembut", "弱": "Lemah", "脆": "Renyah / Rapuh", "坝": "Bendungan",
+  "桥": "Jembatan", "堤": "Tanggul", "堰": "Bendung", "址": "Alamat / Lokasi",
+  "路": "Jalan", "街": "Jalan raya", "巷": "Gang", "旧": "Lama / Bekas",
+  "破": "Rusak / Pecah", "沟壑": "Jurang / Lembah", "山峰": "Puncak gunung", "平原": "Dataran rendah",
+  "丘陵": "Perbukitan"
+};
+
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -280,6 +361,11 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
                           <div className="flex flex-col gap-2 mb-3">
                             <div className="bg-red-50 text-red-800 px-3 py-2 rounded-lg border border-red-100 text-sm">
                               <span className="font-bold">Jawaban Anda Salah:</span> {userOpt ? `${userOpt.label} - ${userOpt.text}` : 'Tidak dijawab'}
+                              {userOpt && userOpt.text.match(/[\u4e00-\u9fa5]/) && (
+                                <span className="block mt-1 italic opacity-90">
+                                  * {userOpt.text.replace(/[^\u4e00-\u9fa5]/g, '')} berarti "{HANZI_DICT[userOpt.text.replace(/[^\u4e00-\u9fa5]/g, '')] || 'Tidak diketahui'}"
+                                </span>
+                              )}
                             </div>
                             <div className="bg-green-50 text-green-800 px-3 py-2 rounded-lg border border-green-100 text-sm">
                               <span className="font-bold">Jawaban Benar:</span> {correctOpt?.label} - {correctOpt?.text}
