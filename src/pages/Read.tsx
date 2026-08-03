@@ -259,7 +259,7 @@ export default function Read() {
     <div className="min-h-screen bg-zinc-900 flex flex-col items-center select-none overflow-hidden">
       
       {/* HEADER / TOOLBAR */}
-      <header className="w-full bg-zinc-950 text-white p-4 flex flex-col md:flex-row gap-4 justify-between items-center z-50 border-b border-zinc-800 shadow-xl">
+      <header className="relative w-full bg-zinc-950 text-white p-4 flex flex-col md:flex-row gap-4 justify-between items-center z-50 border-b border-zinc-800 shadow-xl">
         <div className="flex items-center gap-4 w-full md:w-auto">
           <Button variant="ghost" size="sm" onClick={() => navigate('/library')} className="text-zinc-400 hover:text-white">
             <ChevronLeft className="w-4 h-4 mr-1" /> Library
@@ -335,6 +335,16 @@ export default function Read() {
             <ZoomIn className="w-4 h-4" />
           </Button>
         </div>
+
+        {/* Reading Progress Bar */}
+        {numPages > 0 && (
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-zinc-800/50">
+            <div 
+              className="h-full bg-primary transition-all duration-300"
+              style={{ width: `${(currentPage / numPages) * 100}%` }}
+            />
+          </div>
+        )}
       </header>
 
       {/* VIEWER AREA */}
