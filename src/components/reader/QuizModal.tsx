@@ -386,7 +386,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
             <>
               <div className="mb-6">
                 <div className="flex justify-between items-center text-sm font-medium text-muted-foreground mb-2">
-                  <span>Soal {currentIdx + 1} dari {questions.length}</span>
+                  <span>Soal {currentIdx + 1} dari {questions.length} ({Math.round(((currentIdx + 1) / questions.length) * 100)}% selesai)</span>
                   <span>Skor: {score}</span>
                 </div>
                 <div className="w-full bg-zinc-200 rounded-full h-2 dark:bg-zinc-700">
