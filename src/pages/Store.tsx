@@ -71,11 +71,12 @@ export default function Store() {
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
+    const formatted = new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
       minimumFractionDigits: 0
     }).format(price);
+    return formatted.replace(/^Rp\s?/, 'IDR ');
   };
 
   return (
@@ -135,7 +136,10 @@ export default function Store() {
                   </div>
                   
                   <div className="mt-auto">
-                    <p className="text-2xl font-black text-primary mb-4">{formatPrice(product.price)}</p>
+                    <div className="flex items-center gap-3 mb-4">
+                      <p className="text-2xl font-black text-primary">{formatPrice(product.price)}</p>
+                      <p className="text-sm font-medium text-muted-foreground line-through decoration-red-500/50">{formatPrice(75000)}</p>
+                    </div>
                     <Button 
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-sm"
                       onClick={() => handleAddToCart(product)}
