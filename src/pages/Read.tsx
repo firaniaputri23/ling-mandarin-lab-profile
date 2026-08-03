@@ -73,10 +73,25 @@ export default function Read() {
     // Anti klik kanan
     const disableContextMenu = (e: MouseEvent) => e.preventDefault();
     document.addEventListener('contextmenu', disableContextMenu);
+
+    // Anti Keyboard Shortcuts (Screenshot/Print/Save)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.ctrlKey && e.key.toLowerCase() === 's') ||
+        (e.ctrlKey && e.key.toLowerCase() === 'p') ||
+        (e.metaKey && e.shiftKey) || 
+        e.key === 'PrintScreen'
+      ) {
+        e.preventDefault();
+        toast.error("Fitur screenshot & simpan dinonaktifkan untuk melindungi hak cipta.");
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
     
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('contextmenu', disableContextMenu);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
