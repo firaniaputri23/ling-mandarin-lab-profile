@@ -146,6 +146,19 @@ export const QUIZ_DATABASE: Record<number, Question[]> = {
   ]
 };
 
+export const QUIZ_TITLES: Record<number, string> = {
+  11: "Bab 1 Unsur Mulut (口)",
+  16: "Bab 2 Unsur Ucapan (讠)",
+  24: "Bab 3 Unsur Makanan (饣)",
+  31: "Bab 4 Unsur Air (氵)",
+  38: "Bab 5 Unsur Api (火 / 灬)",
+  45: "Bab 6 Unsur Kayu (木)",
+  53: "Bab 7 Unsur Perempuan (女)",
+  60: "Bab 8 Unsur Rumput (艹)",
+  67: "Bab 9 Unsur Tangan (扌)",
+  75: "Bab 10 Unsur Kaki (⻊)",
+  83: "Bab 11 Unsur Tanah (土)"
+};
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -215,7 +228,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
         
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b bg-white">
-          <h2 className="text-xl font-bold text-primary">📝 Kuis Bab (Hal. {pageId})</h2>
+          <h2 className="text-xl font-bold text-primary">📝 Kuis {QUIZ_TITLES[pageId] || `Bab (Hal. ${pageId})`}</h2>
           <Button variant="ghost" size="icon" onClick={() => { if(!isFinished || isPassed) onClose(); else handleReset(); }} className="rounded-full hover:bg-red-50 hover:text-red-500">
             <X className="w-6 h-6" />
           </Button>
