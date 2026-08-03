@@ -174,6 +174,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
   const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
 
   if (!isOpen || !questions || questions.length === 0) return null;
 
@@ -190,6 +191,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
   const handleCheck = () => {
     if (!selectedAnswer) return;
     setIsAnswerRevealed(true);
+    setUserAnswers(prev => ({ ...prev, [currentIdx]: selectedAnswer }));
     if (selectedAnswer === currentQ.answer) {
       setScore(s => s + 1);
     }
@@ -211,6 +213,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
     setSelectedAnswer(null);
     setIsAnswerRevealed(false);
     setIsFinished(false);
+    setUserAnswers({});
   };
 
   const handleFinish = () => {
@@ -261,12 +264,29 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
                 <div className="space-y-4">
                   {questions.map((q, idx) => {
                     const correctOpt = q.options.find(o => o.label === q.answer);
+                    const userOptLabel = userAnswers[idx];
+                    const userOpt = q.options.find(o => o.label === userOptLabel);
+                    const isUserCorrect = userOptLabel === q.answer;
+
                     return (
                       <div key={q.id} className="bg-white p-4 rounded-xl border shadow-sm">
                         <p className="font-medium text-foreground mb-3">{idx + 1}. {q.question}</p>
-                        <div className="bg-green-50 text-green-800 px-3 py-2 rounded-lg mb-3 border border-green-100 text-sm">
-                          <span className="font-bold">Jawaban Benar:</span> {correctOpt?.label} - {correctOpt?.text}
-                        </div>
+                        
+                        {isUserCorrect ? (
+                          <div className="bg-green-50 text-green-800 px-3 py-2 rounded-lg mb-3 border border-green-100 text-sm">
+                            <span className="font-bold">Jawaban Anda Benar:</span> {correctOpt?.label} - {correctOpt?.text}
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-2 mb-3">
+                            <div className="bg-red-50 text-red-800 px-3 py-2 rounded-lg border border-red-100 text-sm">
+                              <span className="font-bold">Jawaban Anda Salah:</span> {userOpt ? `${userOpt.label} - ${userOpt.text}` : 'Tidak dijawab'}
+                            </div>
+                            <div className="bg-green-50 text-green-800 px-3 py-2 rounded-lg border border-green-100 text-sm">
+                              <span className="font-bold">Jawaban Benar:</span> {correctOpt?.label} - {correctOpt?.text}
+                            </div>
+                          </div>
+                        )}
+                        
                         <p className="text-sm text-muted-foreground leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
                           {q.explanation}
                         </p>
