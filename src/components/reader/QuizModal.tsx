@@ -166,7 +166,8 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
 
   const currentQ = questions[currentIdx];
   const isCorrect = selectedAnswer === currentQ.answer;
-  const isPassed = score >= Math.ceil(questions.length * 0.8);
+  const isPassed = true; // Tidak ada batas minimal untuk lulus
+
 
   const handleSelect = (label: string) => {
     if (isAnswerRevealed) return;
@@ -224,33 +225,33 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
         <div className="p-6 md:p-8 flex-1 bg-cream/30">
           {isFinished ? (
             <div className="text-center py-8">
-              <div className="text-6xl mb-4">{isPassed ? '🏆' : '💔'}</div>
+              <div className="text-6xl mb-4">🏆</div>
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                {isPassed ? 'Selamat, Anda Lulus!' : 'Yah, Belum Lulus...'}
+                Kuis Selesai!
               </h3>
               <p className="text-muted-foreground mb-8">
-                Skor Anda: <span className={`font-bold text-xl ${isPassed ? 'text-green-600' : 'text-red-600'}`}>{score} / {questions.length}</span>
-                <br/>
-                <span className="text-sm mt-2 block">(Syarat lulus: Minimal 8 benar)</span>
+                Skor Anda: <span className="font-bold text-xl text-primary">{score} / {questions.length}</span>
               </p>
               
               <div className="flex gap-4 justify-center">
-                {isPassed ? (
-                  <Button onClick={handleFinish} className="w-64 bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl">
-                    Lanjutkan Membaca <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                ) : (
-                  <Button onClick={handleFinish} className="w-64 bg-red-500 hover:bg-red-600 text-white text-lg py-6 rounded-xl">
-                    <RefreshCcw className="w-5 h-5 mr-2" /> Remedial (Coba Lagi)
-                  </Button>
-                )}
+                <Button onClick={handleFinish} className="w-64 bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl">
+                  Lanjutkan Membaca <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
               </div>
             </div>
           ) : (
             <>
-              <div className="flex justify-between items-center text-sm font-medium text-muted-foreground mb-6">
-                <span>Soal {currentIdx + 1} dari {questions.length}</span>
-                <span>Skor: {score}</span>
+              <div className="mb-6">
+                <div className="flex justify-between items-center text-sm font-medium text-muted-foreground mb-2">
+                  <span>Soal {currentIdx + 1} dari {questions.length}</span>
+                  <span>Skor: {score}</span>
+                </div>
+                <div className="w-full bg-zinc-200 rounded-full h-2 dark:bg-zinc-700">
+                  <div 
+                    className="bg-primary h-2 rounded-full transition-all duration-300" 
+                    style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
+                  ></div>
+                </div>
               </div>
               
               <p className="text-lg md:text-xl font-medium text-foreground mb-8 whitespace-pre-wrap leading-relaxed">
