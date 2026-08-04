@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { programs } from "@/data/programs";
 import { whatsappUrl } from "@/data/stats";
 import whatsappIcon from "@/assets/Medsos/wa.svg";
@@ -9,6 +10,18 @@ import chinaFlag from "@/assets/Flag/china.svg";
 import taiwanFlag from "@/assets/Flag/taiwan.svg";
 
 const ProgramsSection = () => {
+  const [charIndex, setCharIndex] = useState(0);
+
+  const simplifiedChars = ["学习", "让", "汉语", "门", "头"];
+  const traditionalChars = ["學習", "讓", "漢語", "門", "頭"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCharIndex((prev) => (prev + 1) % simplifiedChars.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleWhatsappClick = () => {
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
@@ -73,13 +86,14 @@ const ProgramsSection = () => {
                 {/* Contoh Goresan */}
                 <div className="bg-red-50/50 rounded-2xl p-4 border border-red-100/50 flex flex-col items-center">
                   <h4 className="text-xs font-bold text-[#E63946]/80 uppercase tracking-wider mb-3 text-center">Goresan</h4>
-                  <ul className="space-y-2 text-center text-xl font-medium text-foreground/90">
-                    <li>学习</li>
-                    <li>让</li>
-                    <li>汉语</li>
-                    <li>门</li>
-                    <li>头</li>
-                  </ul>
+                  <div className="flex-1 flex items-center justify-center min-h-[80px]">
+                    <div
+                      key={`simp-${charIndex}`}
+                      className="text-4xl font-medium text-foreground/90 animate-in fade-in zoom-in slide-in-from-bottom-2 duration-500"
+                    >
+                      {simplifiedChars[charIndex]}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Flow / Tujuan */}
@@ -148,13 +162,14 @@ const ProgramsSection = () => {
                 {/* Contoh Goresan */}
                 <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100/50 flex flex-col items-center">
                   <h4 className="text-xs font-bold text-blue-600/80 uppercase tracking-wider mb-3 text-center">Goresan</h4>
-                  <ul className="space-y-2 text-center text-xl font-medium text-foreground/90">
-                    <li>學習</li>
-                    <li>讓</li>
-                    <li>漢語</li>
-                    <li>門</li>
-                    <li>頭</li>
-                  </ul>
+                  <div className="flex-1 flex items-center justify-center min-h-[80px]">
+                    <div
+                      key={`trad-${charIndex}`}
+                      className="text-4xl font-medium text-foreground/90 animate-in fade-in zoom-in slide-in-from-bottom-2 duration-500"
+                    >
+                      {traditionalChars[charIndex]}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Flow / Tujuan */}
