@@ -296,20 +296,20 @@ const ProgramsSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center space-y-6 max-w-2xl mx-auto">
+        <div className="text-center mt-8 max-w-3xl mx-auto w-full">
           <Card className="border-primary/20 bg-muted/30">
-            <CardContent className="py-8">
-              <p className="text-muted-foreground mb-4">
+            <CardContent className="p-6 sm:p-8 flex flex-col items-center justify-center">
+              <p className="text-sm sm:text-base text-muted-foreground mb-6">
                 Info: Harga dan jadwal dikirimkan secara personal via WhatsApp
               </p>
               <Button
                 size="lg"
                 onClick={handleWhatsappClick}
-                className="relative py-5 md:py-8 lg:px-6 w-full md:w-auto sm:min-w-[260px] md:min-w-[400px]  flex-1 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+                className="relative py-6 sm:py-8 w-full max-w-[280px] sm:max-w-[400px] rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
               >
                 <span className="flex w-full items-center justify-center gap-2">
-                  <img src={whatsappIcon} alt="WhatsApp" className="size-7" />
-                  <p className="text-base sm:text-lg">Tanya Program Lewat Whatsapp</p>
+                  <img src={whatsappIcon} alt="WhatsApp" className="size-6 sm:size-7" />
+                  <p className="text-sm sm:text-lg font-bold">Tanya Program via WA</p>
                 </span>
               </Button>
             </CardContent>
