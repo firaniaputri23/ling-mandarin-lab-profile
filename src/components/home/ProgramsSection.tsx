@@ -36,72 +36,160 @@ const ProgramsSection = () => {
           </p>
         </div>
 
-        {/* Simplified vs Traditional info */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <Card className="border-primary/20 bg-white/80 shadow-sm">
-            <CardHeader className="space-y-3">
-              <div className="flex items-center gap-3">
-                <img src={chinaFlag} alt="Bendera China" className="h-9 w-9 rounded-full shadow-sm" />
-                <CardTitle className="text-lg">Simplified (简体字)</CardTitle>
+        {/* Komparasi Terpadu: Simplified vs Traditional */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* China / Simplified Card */}
+          <div className="bg-white rounded-3xl shadow-sm border border-red-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+            <div className="bg-red-50 p-6 flex items-center gap-4 border-b border-red-100">
+              <img src={chinaFlag} alt="China" className="h-12 w-12 rounded-full shadow-sm" />
+              <div>
+                <h3 className="text-xl font-bold text-[#E63946]">HSK (China)</h3>
+                <p className="text-sm font-semibold text-foreground/70">Simplified / 简体字 (jiǎn tǐ zì)</p>
               </div>
-              <CardDescription className="space-y-2 text-foreground">
-                <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
-                  <li>Bentuk tulisan yang disederhanakan</li>
-                  <li>Lebih mudah dipahami untuk pemula</li>
-                  <li>Digunakan di: China, Singapura, Malaysia</li>
-                </ol>
-                <div className="pt-2 text-foreground font-semibold">Cocok untuk:</div>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Ujian HSK
+            </div>
+            
+            <div className="p-6 flex-1 flex flex-col gap-8">
+              {/* Karakteristik */}
+              <div>
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Karakteristik Utama</h4>
+                <ul className="space-y-3 text-sm text-foreground/90">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E63946] mt-2 shrink-0" />
+                    <span>Bentuk tulisan yang <strong>disederhanakan</strong></span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Keperluan bisnis & pekerjaan
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E63946] mt-2 shrink-0" />
+                    <span>Lebih mudah dipahami untuk pemula</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Belajar lebih cepat sebagai pemula
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E63946] mt-2 shrink-0" />
+                    <span>Digunakan di: <strong>China, Singapura, Malaysia</strong></span>
                   </li>
                 </ul>
-              </CardDescription>
-            </CardHeader>
-          </Card>
+              </div>
 
-          <Card className="border-primary/20 bg-white/80 shadow-sm">
-            <CardHeader className="space-y-3">
-              <div className="flex items-center gap-3">
-                <img src={taiwanFlag} alt="Bendera Taiwan" className="h-9 w-9 rounded-full shadow-sm" />
-                <CardTitle className="text-lg">Traditional (繁體字)</CardTitle>
+              <div className="grid grid-cols-2 gap-4">
+                {/* Contoh Goresan */}
+                <div className="bg-red-50/50 rounded-2xl p-4 border border-red-100/50 flex flex-col items-center">
+                  <h4 className="text-xs font-bold text-[#E63946]/80 uppercase tracking-wider mb-3 text-center">Goresan</h4>
+                  <ul className="space-y-2 text-center text-xl font-medium text-foreground/90">
+                    <li>学习</li>
+                    <li>让</li>
+                    <li>汉语</li>
+                    <li>门</li>
+                    <li>头</li>
+                  </ul>
+                </div>
+
+                {/* Flow / Tujuan */}
+                <div className="bg-red-50/50 rounded-2xl p-4 border border-red-100/50 flex flex-col items-center justify-center text-center">
+                  <h4 className="text-xs font-bold text-[#E63946]/80 uppercase tracking-wider mb-2">Alur</h4>
+                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau China?</p>
+                  <div className="w-0.5 h-3 bg-red-300 mb-1 rounded-full"></div>
+                  <div className="font-bold text-[#E63946] text-sm mb-1">Ujian HSK</div>
+                  <div className="w-0.5 h-3 bg-red-300 mb-1 rounded-full"></div>
+                  <p className="font-bold text-sm text-foreground/90">Berbisnis</p>
+                </div>
               </div>
-              <CardDescription className="space-y-2 text-foreground">
-                <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
-                  <li>Bentuk asli dengan goresan lebih banyak</li>
-                  <li>Banyak dipakai dalam budaya & literatur klasik</li>
-                  <li>Digunakan di: Taiwan, Hong Kong, Makau</li>
-                </ol>
-                <div className="pt-2 text-foreground font-semibold">Cocok untuk:</div>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Persiapan sekolah/kerja di Taiwan/HK
+
+              {/* Cocok Untuk */}
+              <div className="mt-auto pt-6 border-t border-border">
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Sangat Cocok Untuk:</h4>
+                <ul className="space-y-3 text-sm text-foreground/90">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-[#E63946]" />
+                    <span>Ujian HSK (Sertifikasi Internasional)</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Minat budaya atau literatur klasik
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-[#E63946]" />
+                    <span>Keperluan bisnis & pekerjaan profesional</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                    Ingin mempelajari karakter yang lebih lengkap
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-[#E63946]" />
+                    <span>Belajar lebih cepat untuk tingkat pemula</span>
                   </li>
                 </ul>
-              </CardDescription>
-            </CardHeader>
-          </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* Taiwan / Traditional Card */}
+          <div className="bg-white rounded-3xl shadow-sm border border-blue-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+            <div className="bg-blue-50 p-6 flex items-center gap-4 border-b border-blue-100">
+              <img src={taiwanFlag} alt="Taiwan" className="h-12 w-12 rounded-full shadow-sm" />
+              <div>
+                <h3 className="text-xl font-bold text-blue-600">TOCFL (Taiwan)</h3>
+                <p className="text-sm font-semibold text-foreground/70">Traditional / 繁體字 (fán tǐ zì)</p>
+              </div>
+            </div>
+            
+            <div className="p-6 flex-1 flex flex-col gap-8">
+              {/* Karakteristik */}
+              <div>
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Karakteristik Utama</h4>
+                <ul className="space-y-3 text-sm text-foreground/90">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
+                    <span>Bentuk asli dengan <strong>goresan lebih banyak (rumit)</strong></span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
+                    <span>Banyak dipakai dalam budaya & literatur klasik</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
+                    <span>Digunakan di: <strong>Taiwan, Hong Kong, Makau</strong></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* Contoh Goresan */}
+                <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100/50 flex flex-col items-center">
+                  <h4 className="text-xs font-bold text-blue-600/80 uppercase tracking-wider mb-3 text-center">Goresan</h4>
+                  <ul className="space-y-2 text-center text-xl font-medium text-foreground/90">
+                    <li>學習</li>
+                    <li>讓</li>
+                    <li>漢語</li>
+                    <li>門</li>
+                    <li>頭</li>
+                  </ul>
+                </div>
+
+                {/* Flow / Tujuan */}
+                <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100/50 flex flex-col items-center justify-center text-center">
+                  <h4 className="text-xs font-bold text-blue-600/80 uppercase tracking-wider mb-2">Alur</h4>
+                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau Taiwan?</p>
+                  <div className="w-0.5 h-3 bg-blue-300 mb-1 rounded-full"></div>
+                  <div className="font-bold text-blue-600 text-sm mb-1">Ujian TOCFL</div>
+                  <div className="w-0.5 h-3 bg-blue-300 mb-1 rounded-full"></div>
+                  <p className="font-bold text-sm text-foreground/90">Keseharian Taiwan</p>
+                </div>
+              </div>
+
+              {/* Cocok Untuk */}
+              <div className="mt-auto pt-6 border-t border-border">
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Sangat Cocok Untuk:</h4>
+                <ul className="space-y-3 text-sm text-foreground/90">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-blue-500" />
+                    <span>Persiapan sekolah/kerja di Taiwan/HK</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-blue-500" />
+                    <span>Minat pada budaya atau literatur klasik</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-blue-500" />
+                    <span>Mempelajari karakter asli yang lebih lengkap</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* --- NEW SECTIONS --- */}
         {/* Perbandingan Level Table */}
         <div className="mt-12 bg-white rounded-3xl shadow-sm border border-border overflow-hidden">
           <div className="p-4 md:p-6 text-center bg-muted/30 border-b">
@@ -165,76 +253,8 @@ const ProgramsSection = () => {
           </div>
         </div>
 
-        {/* Contoh Perbedaan Goresan & Harus Pilih Yang Mana */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 mb-8">
-          
-          {/* Contoh Goresan */}
-          <div className="bg-white rounded-3xl shadow-sm border border-border p-5 md:p-6 flex flex-col">
-            <h3 className="text-lg font-bold text-center mb-4 px-5 py-2 bg-primary/10 rounded-full inline-block mx-auto w-fit text-primary">
-              Contoh Perbedaan Goresan
-            </h3>
-            <div className="flex gap-4 flex-1">
-              {/* Simplified Col */}
-              <div className="flex-1 bg-red-50/70 rounded-2xl p-4 border border-red-100/50">
-                <h4 className="text-[#E63946] font-bold text-center text-base">HSK (China)</h4>
-                <p className="text-xs text-center text-[#E63946]/80 mb-4 font-medium">简体字 jiǎn tǐ zì</p>
-                <ul className="space-y-2 text-center text-lg md:text-xl font-medium text-foreground/90">
-                  <li>学习</li>
-                  <li>让</li>
-                  <li>汉语</li>
-                  <li>门</li>
-                  <li>头</li>
-                </ul>
-              </div>
-              {/* Traditional Col */}
-              <div className="flex-1 bg-blue-50/70 rounded-2xl p-4 border border-blue-100/50">
-                <h4 className="text-blue-600 font-bold text-center text-base">TOCFL (Taiwan)</h4>
-                <p className="text-xs text-center text-blue-600/80 mb-4 font-medium">繁體字 fán tǐ zì</p>
-                <ul className="space-y-2 text-center text-lg md:text-xl font-medium text-foreground/90">
-                  <li>學習</li>
-                  <li>讓</li>
-                  <li>漢語</li>
-                  <li>門</li>
-                  <li>頭</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Harus Pilih Yang Mana */}
-          <div className="bg-white rounded-3xl shadow-sm border border-border p-5 md:p-6 flex flex-col items-center">
-            <h3 className="text-lg font-bold text-center mb-4 px-6 py-2 bg-primary/10 rounded-full text-primary w-fit tracking-wide">
-              Panduan Pemilihan
-            </h3>
-            <div className="flex w-full gap-4 flex-1">
-               {/* China */}
-               <div className="flex-1 flex flex-col items-center justify-center text-center bg-red-50/70 rounded-2xl p-4 border border-red-100/50">
-                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau China?</p>
-                  <div className="w-0.5 h-4 bg-red-300 mb-1 rounded-full"></div>
-                  <div className="font-bold text-[#E63946] text-base mb-1 flex flex-col items-center gap-1">
-                    Ujian HSK
-                    <img src={chinaFlag} alt="China" className="w-5 h-5 rounded-full shadow-sm mt-0.5" />
-                  </div>
-                  <div className="w-0.5 h-4 bg-red-300 mb-1 rounded-full"></div>
-                  <p className="font-bold text-sm text-foreground/90">Berbisnis</p>
-               </div>
-               {/* Taiwan */}
-               <div className="flex-1 flex flex-col items-center justify-center text-center bg-blue-50/70 rounded-2xl p-4 border border-blue-100/50">
-                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau Taiwan?</p>
-                  <div className="w-0.5 h-4 bg-blue-300 mb-1 rounded-full"></div>
-                  <div className="font-bold text-blue-600 text-base mb-1 flex flex-col items-center gap-1">
-                    Ujian TOCFL
-                    <img src={taiwanFlag} alt="Taiwan" className="w-5 h-5 rounded-full shadow-sm mt-0.5" />
-                  </div>
-                  <div className="w-0.5 h-4 bg-blue-300 mb-1 rounded-full"></div>
-                  <p className="font-bold text-sm text-foreground/90">Keseharian Taiwan</p>
-               </div>
-            </div>
-          </div>
-        </div>
-
         {/* Program Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
           {programs.map((program) => (
             <Card key={program.id} className="border-border hover:shadow-lg transition-all">
               <CardHeader>
