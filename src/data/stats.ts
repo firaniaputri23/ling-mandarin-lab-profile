@@ -17,7 +17,7 @@ export const stats: Stat[] = [
   {
     id: 2,
     label: "Jumlah Murid Ling Chinese Lab",
-    value: "50+",
+    value: "100+",
     description: "Murid aktif saat ini"
   },
   {
