@@ -386,7 +386,7 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
             <>
               <div className="mb-6">
                 <div className="flex justify-between items-center text-sm font-medium text-muted-foreground mb-2">
-                  <span>Soal {currentIdx + 1} dari {questions.length}</span>
+                  <span>Soal {currentIdx + 1} dari {questions.length} ({Math.round(((currentIdx + 1) / questions.length) * 100)}% selesai)</span>
                   <span>Skor: {score}</span>
                 </div>
                 <div className="w-full bg-zinc-200 rounded-full h-2 dark:bg-zinc-700">
@@ -426,7 +426,14 @@ export default function QuizModal({ isOpen, onClose, questions, onPass, pageId }
                       <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shrink-0 ${selectedAnswer === opt.label ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
                         {opt.label}
                       </span>
-                      <span className="font-medium">{opt.text}</span>
+                      <span className="font-medium">
+                        {opt.text}
+                        {isAnswerRevealed && opt.text.match(/[\u4e00-\u9fa5]/) && HANZI_DICT[opt.text.replace(/[^\u4e00-\u9fa5]/g, '')] && (
+                          <span className="ml-2 opacity-80 font-normal italic">
+                            - {HANZI_DICT[opt.text.replace(/[^\u4e00-\u9fa5]/g, '')]}
+                          </span>
+                        )}
+                      </span>
                     </button>
                   );
                 })}

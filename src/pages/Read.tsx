@@ -73,10 +73,25 @@ export default function Read() {
     // Anti klik kanan
     const disableContextMenu = (e: MouseEvent) => e.preventDefault();
     document.addEventListener('contextmenu', disableContextMenu);
+
+    // Anti Keyboard Shortcuts (Screenshot/Print/Save)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.ctrlKey && e.key.toLowerCase() === 's') ||
+        (e.ctrlKey && e.key.toLowerCase() === 'p') ||
+        (e.metaKey && e.shiftKey) || 
+        e.key === 'PrintScreen'
+      ) {
+        e.preventDefault();
+        toast.error("Fitur screenshot & simpan dinonaktifkan untuk melindungi hak cipta.");
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
     
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('contextmenu', disableContextMenu);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
@@ -264,7 +279,14 @@ export default function Read() {
           <Button variant="ghost" size="sm" onClick={() => navigate('/library')} className="text-zinc-400 hover:text-white">
             <ChevronLeft className="w-4 h-4 mr-1" /> Library
           </Button>
-          <h1 className="font-bold text-sm md:text-base truncate max-w-[150px] md:max-w-xs">{displayTitle}</h1>
+          <div className="flex flex-col">
+            <h1 className="font-bold text-sm md:text-base truncate max-w-[150px] md:max-w-xs">{displayTitle}</h1>
+            {numPages > 0 && (
+              <span className="text-xs text-zinc-400 mt-0.5">
+                Hal {currentPage} dari {numPages} ({Math.round((currentPage / numPages) * 100)}% selesai)
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center gap-2 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
