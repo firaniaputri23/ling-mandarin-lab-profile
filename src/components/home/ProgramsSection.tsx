@@ -101,6 +101,138 @@ const ProgramsSection = () => {
           </Card>
         </div>
 
+        {/* --- NEW SECTIONS --- */}
+        {/* Perbandingan Level Table */}
+        <div className="mt-12 bg-white rounded-3xl shadow-sm border border-border overflow-hidden">
+          <div className="p-4 md:p-6 text-center bg-muted/30 border-b">
+            <h3 className="text-lg md:text-xl font-bold text-foreground tracking-wide">Perbandingan Level</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr>
+                  <th className="p-4 font-semibold text-muted-foreground border-b w-16 text-center bg-primary/5 text-sm">CEFR</th>
+                  <th className="p-4 font-semibold text-muted-foreground border-b bg-primary/5 text-sm">Keterangan</th>
+                  <th className="p-4 font-semibold text-[#E63946] border-b text-center bg-red-50/50">
+                    <div className="text-base font-bold">HSK (China)</div>
+                    <div className="text-xs font-normal opacity-90">简体字 jiǎn tǐ zì</div>
+                  </th>
+                  <th className="p-4 font-semibold text-blue-600 border-b text-center bg-blue-50/50">
+                    <div className="text-base font-bold">TOCFL (Taiwan)</div>
+                    <div className="text-xs font-normal opacity-90">繁體字 fán tǐ zì</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y text-sm">
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">C2</td>
+                  <td className="p-4 font-medium">Sangat Mahir / Mastery</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 9</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 6 (Band C)<br/><span className="text-xs text-muted-foreground">精通級 (Mastery)</span></td>
+                </tr>
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">C1</td>
+                  <td className="p-4 font-medium">Mahir / Advanced</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 7 - 8</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 5 (Band C)<br/><span className="text-xs text-muted-foreground">流利級 (Fluent)</span></td>
+                </tr>
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">B2</td>
+                  <td className="p-4 font-medium">Menengah Atas / Upper-Inter</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 6</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 4 (Band B)<br/><span className="text-xs text-muted-foreground">高階級 (Advanced)</span></td>
+                </tr>
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">B1</td>
+                  <td className="p-4 font-medium">Menengah / Intermediate</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 4 - 5</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 3 (Band B)<br/><span className="text-xs text-muted-foreground">進階級 (Vantage)</span></td>
+                </tr>
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">A2</td>
+                  <td className="p-4 font-medium">Dasar / Elementary</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 2 - 3</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 2 (Band A)<br/><span className="text-xs text-muted-foreground">基礎級 (Waystage)</span></td>
+                </tr>
+                <tr className="hover:bg-muted/10 transition-colors">
+                  <td className="p-4 font-bold text-center">A1</td>
+                  <td className="p-4 font-medium">Pemula / Beginner</td>
+                  <td className="p-4 text-center font-bold text-foreground/80 bg-red-50/30">HSK 1</td>
+                  <td className="p-4 text-center bg-blue-50/30">Level 1 (Band A)<br/><span className="text-xs text-muted-foreground">入門級 (Breakthrough)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Contoh Perbedaan Goresan & Harus Pilih Yang Mana */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 mb-8">
+          
+          {/* Contoh Goresan */}
+          <div className="bg-white rounded-3xl shadow-sm border border-border p-5 md:p-6 flex flex-col">
+            <h3 className="text-lg font-bold text-center mb-4 px-5 py-2 bg-primary/10 rounded-full inline-block mx-auto w-fit text-primary">
+              Contoh Perbedaan Goresan
+            </h3>
+            <div className="flex gap-4 flex-1">
+              {/* Simplified Col */}
+              <div className="flex-1 bg-red-50/70 rounded-2xl p-4 border border-red-100/50">
+                <h4 className="text-[#E63946] font-bold text-center text-base">HSK (China)</h4>
+                <p className="text-xs text-center text-[#E63946]/80 mb-4 font-medium">简体字 jiǎn tǐ zì</p>
+                <ul className="space-y-2 text-center text-lg md:text-xl font-medium text-foreground/90">
+                  <li>学习</li>
+                  <li>让</li>
+                  <li>汉语</li>
+                  <li>门</li>
+                  <li>头</li>
+                </ul>
+              </div>
+              {/* Traditional Col */}
+              <div className="flex-1 bg-blue-50/70 rounded-2xl p-4 border border-blue-100/50">
+                <h4 className="text-blue-600 font-bold text-center text-base">TOCFL (Taiwan)</h4>
+                <p className="text-xs text-center text-blue-600/80 mb-4 font-medium">繁體字 fán tǐ zì</p>
+                <ul className="space-y-2 text-center text-lg md:text-xl font-medium text-foreground/90">
+                  <li>學習</li>
+                  <li>讓</li>
+                  <li>漢語</li>
+                  <li>門</li>
+                  <li>頭</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Harus Pilih Yang Mana */}
+          <div className="bg-white rounded-3xl shadow-sm border border-border p-5 md:p-6 flex flex-col items-center">
+            <h3 className="text-lg font-bold text-center mb-4 px-6 py-2 bg-primary/10 rounded-full text-primary w-fit tracking-wide">
+              Panduan Pemilihan
+            </h3>
+            <div className="flex w-full gap-4 flex-1">
+               {/* China */}
+               <div className="flex-1 flex flex-col items-center justify-center text-center bg-red-50/70 rounded-2xl p-4 border border-red-100/50">
+                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau China?</p>
+                  <div className="w-0.5 h-4 bg-red-300 mb-1 rounded-full"></div>
+                  <div className="font-bold text-[#E63946] text-base mb-1 flex flex-col items-center gap-1">
+                    Ujian HSK
+                    <img src={chinaFlag} alt="China" className="w-5 h-5 rounded-full shadow-sm mt-0.5" />
+                  </div>
+                  <div className="w-0.5 h-4 bg-red-300 mb-1 rounded-full"></div>
+                  <p className="font-bold text-sm text-foreground/90">Berbisnis</p>
+               </div>
+               {/* Taiwan */}
+               <div className="flex-1 flex flex-col items-center justify-center text-center bg-blue-50/70 rounded-2xl p-4 border border-blue-100/50">
+                  <p className="font-semibold text-sm mb-1 text-foreground/80">Mau Taiwan?</p>
+                  <div className="w-0.5 h-4 bg-blue-300 mb-1 rounded-full"></div>
+                  <div className="font-bold text-blue-600 text-base mb-1 flex flex-col items-center gap-1">
+                    Ujian TOCFL
+                    <img src={taiwanFlag} alt="Taiwan" className="w-5 h-5 rounded-full shadow-sm mt-0.5" />
+                  </div>
+                  <div className="w-0.5 h-4 bg-blue-300 mb-1 rounded-full"></div>
+                  <p className="font-bold text-sm text-foreground/90">Keseharian Taiwan</p>
+               </div>
+            </div>
+          </div>
+        </div>
+
         {/* Program Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {programs.map((program) => (
