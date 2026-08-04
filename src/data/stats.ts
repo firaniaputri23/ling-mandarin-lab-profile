@@ -1,3 +1,5 @@
+import { teachers } from "./teachers";
+
 export interface Stat {
   id: number;
   label: string;
@@ -15,13 +17,13 @@ export const stats: Stat[] = [
   {
     id: 2,
     label: "Jumlah Murid Ling Chinese Lab",
-    value: "50+",
+    value: "100+",
     description: "Murid aktif saat ini"
   },
   {
     id: 3,
     label: "Mentor Bersertifikat HSK & TOCFL",
-    value: "10",
+    value: teachers.length.toString(),
     description: "Laoshi profesional"
   }
 ];
