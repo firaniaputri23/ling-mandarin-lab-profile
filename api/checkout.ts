@@ -1,40 +1,35 @@
-import crypto from 'crypto';
+import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { SERVICE_FEE } from './_lib/pricing';
+import { guardPurchase } from './_lib/guards';
+import { getIpaymuConfig, ipaymuPost } from './_lib/ipaymu';
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabase = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+);
 
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+// iPaymu sessions live 24h by default.
+const ORDER_EXPIRY_MINUTES = 24 * 60;
 
-const DOKU_CLIENT_ID = process.env.DOKU_CLIENT_ID || process.env.DOKU_API_KEY || '';
-const DOKU_SECRET_KEY = process.env.DOKU_SECRET_KEY || '';
-const DOKU_IS_PRODUCTION = process.env.DOKU_IS_PRODUCTION === 'true';
+const checkoutSchema = z.object({
+  productId: z.string().min(1, 'productId is required'),
+  buyerEmail: z.string().email('Invalid email'),
+  buyerName: z.string().min(2, 'Name too short'),
+  buyerWhatsapp: z
+    .string()
+    .min(9, 'Invalid WhatsApp number')
+    .regex(/^[0-9+]+$/, 'Digits only'),
+});
 
-const DOKU_BASE_URL = DOKU_IS_PRODUCTION 
-  ? 'https://api.doku.com'
-  : 'https://api-sandbox.doku.com';
-
-function generateDokuSignature(
-  clientId: string,
-  requestId: string,
-  requestTimestamp: string,
-  targetPath: string,
-  secretKey: string,
-  body: object
-) {
-  const bodyString = JSON.stringify(body);
-  const digest = crypto.createHash('sha256').update(bodyString).digest('base64');
-  
-  const signatureString = 
-    `Client-Id:${clientId}\n` +
-    `Request-Id:${requestId}\n` +
-    `Request-Timestamp:${requestTimestamp}\n` +
-    `Request-Target:${targetPath}\n` +
-    `Digest:${digest}`;
-    
-  const signature = crypto.createHmac('sha256', secretKey).update(signatureString).digest('base64');
-  return `HMACSHA256=${signature}`;
+/** Public base URL for return/notify callbacks. */
+function resolveBaseUrl(req: VercelRequest): string {
+  const configured = process.env.PUBLIC_BASE_URL?.replace(/\/$/, '');
+  if (configured) return configured;
+  const host = req.headers.host || 'www.lingchineselab.com';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  return `${protocol}://${host}`;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -43,98 +38,100 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { productId, buyerEmail, buyerName, buyerWhatsapp } = req.body;
-
-    if (!productId || !buyerEmail || !buyerName || !buyerWhatsapp) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    const parsed = checkoutSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res
+        .status(400)
+        .json({ error: parsed.error.issues[0]?.message || 'Invalid request' });
     }
+    const { productId, buyerEmail, buyerName, buyerWhatsapp } = parsed.data;
 
-    const { data: product, error: productError } = await supabase
-      .from('products')
-      .select('*')
-      .eq('id', productId)
-      .single();
-
-    if (productError || !product) {
-      return res.status(404).json({ error: 'Product not found' });
+    // Shared guards: beta whitelist / product exists / not already owned.
+    const guard = await guardPurchase(productId, buyerEmail);
+    if (!guard.ok) {
+      return res.status(guard.status).json({
+        error: guard.error,
+        ...(guard.alreadyOwned ? { alreadyOwned: true } : {}),
+      });
     }
+    const { product, normalizedEmail } = guard;
 
+    const amount = product.price + SERVICE_FEE;
     const orderRef = `LCL-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const expiresAt = new Date(
+      Date.now() + ORDER_EXPIRY_MINUTES * 60_000
+    ).toISOString();
 
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert({
-        order_ref: orderRef,
-        product_id: productId,
-        buyer_email: buyerEmail,
-        buyer_name: buyerName,
-        buyer_whatsapp: buyerWhatsapp,
-        amount: product.price,
-        status: 'pending'
-      })
-      .select()
-      .single();
-
+    // Create the pending order first so the callback (which arrives by
+    // referenceId = orderRef) always has a row to settle.
+    const { error: orderError } = await supabase.from('orders').insert({
+      order_ref: orderRef,
+      product_id: productId,
+      buyer_email: normalizedEmail,
+      buyer_name: buyerName,
+      buyer_whatsapp: buyerWhatsapp,
+      amount,
+      base_amount: amount,
+      final_amount: amount,
+      service_fee: SERVICE_FEE,
+      payment_method: 'ipaymu',
+      status: 'pending',
+      expires_at: expiresAt,
+    });
     if (orderError) throw orderError;
 
-    // Doku API configuration
-    const targetPath = '/checkout/v1/payment';
-    const requestId = crypto.randomUUID();
-    const requestTimestamp = new Date().toISOString().substring(0, 19) + "Z"; // YYYY-MM-DDTHH:MM:SSZ
-
-    const dokuPayload = {
-      order: {
-        amount: product.price,
-        invoice_number: orderRef,
-        currency: "IDR",
-        callback_url: `https://www.lingchineselab.com/payment/pending?orderRef=${orderRef}` // TODO: fix callback url to redirect properly
-      },
-      payment: {
-        payment_due_date: 60 // 60 minutes
-      },
-      customer: {
-        id: buyerEmail,
-        name: buyerName,
-        email: buyerEmail,
-        phone: buyerWhatsapp
-      }
-    };
-
-    const signature = generateDokuSignature(
-      DOKU_CLIENT_ID,
-      requestId,
-      requestTimestamp,
-      targetPath,
-      DOKU_SECRET_KEY,
-      dokuPayload
-    );
-
-    const dokuResponse = await fetch(`${DOKU_BASE_URL}${targetPath}`, {
-      method: 'POST',
-      headers: {
-        'Client-Id': DOKU_CLIENT_ID,
-        'Request-Id': requestId,
-        'Request-Timestamp': requestTimestamp,
-        'Signature': signature,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(dokuPayload)
-    });
-
-    const dokuData = await dokuResponse.json();
-
-    if (!dokuResponse.ok) {
-      console.error('Doku API error:', dokuData);
-      throw new Error(dokuData.message?.[0] || dokuData.error?.message || 'Failed to create Doku payment');
+    const base = resolveBaseUrl(req);
+    const config = getIpaymuConfig();
+    if (!config.va || !config.apiKey) {
+      console.error('[checkout] iPaymu credentials missing');
+      return res
+        .status(503)
+        .json({ error: 'Pembayaran sedang tidak tersedia. Coba lagi nanti.' });
     }
 
-    // Save Doku URL or ID to orders if necessary (we can just return it)
-    return res.status(200).json({
-      paymentUrl: dokuData.response.payment.url,
-      orderRef
-    });
-  } catch (error: any) {
+    // iPaymu redirect payment: buyer picks the channel on iPaymu's hosted page.
+    const body = {
+      product: [product.title],
+      qty: ['1'],
+      price: [String(amount)],
+      amount: String(amount),
+      returnUrl: `${base}/payment/pending?orderRef=${orderRef}`,
+      cancelUrl: `${base}/payment/pending?orderRef=${orderRef}`,
+      notifyUrl: `${base}/api/ipaymu-notify`,
+      referenceId: orderRef,
+      buyerName,
+      buyerPhone: buyerWhatsapp,
+      buyerEmail: normalizedEmail,
+    };
+
+    const { ok, data } = await ipaymuPost('/payment', body, config);
+    const paymentUrl = data?.Data?.Url;
+
+    if (!ok || !paymentUrl) {
+      console.error('[checkout] iPaymu error:', {
+        status: data?.Status,
+        message: data?.Message,
+        body: data,
+      });
+      throw new Error(
+        (Array.isArray(data?.Message) ? data.Message[0] : data?.Message) ||
+          'Gagal membuat pembayaran iPaymu'
+      );
+    }
+
+    // Store the iPaymu session id for traceability.
+    if (data?.Data?.SessionID) {
+      await supabase
+        .from('orders')
+        .update({ doku_invoice_id: data.Data.SessionID })
+        .eq('order_ref', orderRef);
+    }
+
+    return res.status(200).json({ paymentUrl, orderRef });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
     console.error('Checkout error:', error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: message });
   }
 }
